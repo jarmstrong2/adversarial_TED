@@ -32,7 +32,6 @@ class RNN_t_model(object):
 		output_w = tf.get_variable("RNN_t_w", [hidden_size, output_size])
 		output_b = tf.get_variable("RNN_t_b", [output_size])
         
-		self.output=seq_len
 		self.output = tf.matmul(relevant_outputs, output_w) + output_b
 
 	def cu_seq_len(self, data):
