@@ -69,5 +69,5 @@ if __name__ == "__main__" :
 		u = np.eye(50,30)
 		u = np.expand_dims(u,0)
 		r = np.concatenate((u,u,u),axis=0)
-		result = session.run(tf.shape(mod.output), {mod.cu:r})
+		result = session.run(mod.output), {mod.cu:r})
 		print(result)
