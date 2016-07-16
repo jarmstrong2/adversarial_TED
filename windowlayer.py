@@ -43,8 +43,3 @@ def w(input_data, cu, kappas_t_1, config):
 	output = tf.squeeze(tf.batch_matmul(phi_t, cu), [1])
 
 	return output, kappas_t, phi_t
-
-
-
-
-
