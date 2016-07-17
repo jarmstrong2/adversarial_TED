@@ -60,7 +60,7 @@ class RNN_g_model(object):
 					concat_straight_RNN_t = tf.nn.dropout(concat_straight_RNN_t, config.keep_prob)
 				cell_output = tf.matmul(concat_straight_RNN_t, h_w) + h_b
 				
-		self.outputs = outputs
+		self.outputs = tf.transpose(outputs, perm=[1,0,2])
 
 # testing if everything works
 if __name__ == "__main__" :
