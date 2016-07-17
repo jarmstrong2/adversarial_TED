@@ -46,7 +46,7 @@ class RNN_baseline_model(object):
 
 			scope.reuse_variables()
 
-			outputs_RNN_t_reuse = outputs_RNN_t			
+			outputs_RNN_t_reuse = outputs_RNN_t	
 
 		# -----------------------------------
 
@@ -103,7 +103,7 @@ class RNN_baseline_model(object):
 			outputs_RNN_g = tf.transpose(outputs_RNN_g, perm=[1,0,2])
 
 			if model_type == "GEN":	
-				self.outputs = tf.transpose(outputs_RNN_g, perm=[1,0,2])
+				self.outputs = outputs_RNN_g
 
 		# -----------------------------------
 
@@ -200,11 +200,11 @@ if __name__ == "__main__" :
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-0.4,0.4)
 		with tf.variable_scope("model_full", reuse=None, initializer=initializer):
-			mod = RNN_baseline_model(True, configobj())
+			mod = RNN_baseline_model(False, configobj())
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
-			mod_g = RNN_baseline_model(True, configobj(), model_type="GEN")
+			mod_g = RNN_baseline_model(False, configobj(), model_type="GEN")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
-			mod_d = RNN_baseline_model(True, configobj(), model_type="DISC")
+			mod_d = RNN_baseline_model(False, configobj(), model_type="DISC")
 		tf.initialize_all_variables().run()
 		u = np.eye(50,30)
 		u = np.expand_dims(u,0)
