@@ -43,7 +43,7 @@ class RNN_d_model(object):
       		inputs,
       		dtype=tf.float32,
       		sequence_length=seq_len,
-      	)
+      		)
 
 		# linear trans for hidden_size of lstm -> single value
 		k_w = tf.get_variable("RNN_k_w", [hidden_size, 1])
