@@ -90,18 +90,3 @@ if __name__ == "__main__" :
 		z = np.random.randn(3, 10)
 		result = session.run((mod_g.outputs), {mod_t.cu:r, mod_g.z:z})
 		print(result)
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
