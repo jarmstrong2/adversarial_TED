@@ -152,6 +152,16 @@ class RNN_baseline_model(object):
 			final_prob = tf.sigmoid(final_trans)
 
 			self.outputs = final_prob
+			self.cost = -tf.log(final_prob)
+			self.cost = tf.squeeze(self.cost, [1])
+
+			# TODO figure out learning procedure
+			# self._lr = config.lr
+			# tvars = tf.trainable_variables()
+			# grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, tvars),
+			#                                    config.max_grad_norm)
+			# optimizer = tf.train.AdamOptimizer(self.lr)
+			# self._train_op = optimizer.apply_gradients(zip(grads, tvars))
 
 		# -----------------------------------
 
@@ -166,7 +176,7 @@ class RNN_baseline_model(object):
 		''' Assuming one-hot char matrix is batchsize x max speech length x vocab length, return
 		sequence length for each char matrix '''
 
-		signed_data = tf.sign(tf.reduce_sum(tf.abs(data), reduction_indices=2))
+		signed_data = tf.sign(tf.reduce_max(tf.abs(data), reduction_indices=2))
 		length = tf.reduce_sum(signed_data, reduction_indices=1)
 		return length
 
