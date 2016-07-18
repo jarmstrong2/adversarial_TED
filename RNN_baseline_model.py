@@ -35,7 +35,7 @@ class RNN_baseline_model(object):
 	      		self.cu,
 	      		dtype=tf.float32,
 	      		sequence_length=seq_len_RNN_t,
-	      	)
+	      		)
 
 			relevant_outputs_RNN_t = self.last_relevant(output_RNN_t, tf.identity(seq_len_RNN_t))
 			
