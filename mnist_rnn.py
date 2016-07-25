@@ -177,6 +177,7 @@ class RNN_MNIST_model(object):
 		# ------------------------------------
 
 def getinput(batch_x):
+	# spliting the image into its quadrants, then flattening, then concatenating
 	full_im = np.reshape(batch_x,(configobj().batch_size, 28,28))
 	split_ul = full_im[:,0:14,0:14]
 	split_ul = np.reshape(split_ul, (configobj().batch_size, 14*14))
