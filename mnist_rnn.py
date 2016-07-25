@@ -196,7 +196,7 @@ def getinput(batch_x):
 
 if __name__ == "__main__" :
 	class configobj(object):
-		batch_size = 100
+		batch_size = 2*8
 		keep_prob = 0.7
 		z_size = 100
 		lstm_layers_RNN_g = 4
@@ -224,7 +224,7 @@ if __name__ == "__main__" :
 		for i in range(configobj().iterations):
 			# update the generator
 			if ((i+1) % 5 == 0):
-				if ((i+1) % 5 == 0):
+				if ((i+1) % 1000 == 0):
 					print("------------")
 					print("Step: {}".format(i))
 				z = np.random.uniform(-0.5,0.5,(configobj().batch_size,configobj().z_size))
