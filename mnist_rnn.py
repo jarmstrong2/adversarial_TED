@@ -204,7 +204,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 600
 		#lr = 0.005
-		lr = 0.001
+		lr = 0.0002
 		max_grad_norm = 10
 		iterations = 10**8
 		init_scale = 0.01
@@ -235,7 +235,7 @@ if __name__ == "__main__" :
 
 			# update the generator
 			if ((i+1) % 2 == 0):
-				z = np.random.uniform(-0.5,0.5,(configobj().batch_size,configobj().z_size))
+				z = np.random.uniform(-0.05,0.05,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
 				target_gen = np.zeros((configobj().batch_size, 10))
@@ -253,7 +253,7 @@ if __name__ == "__main__" :
 				target_bin = np.zeros((configobj().batch_size, 2))
 				target_bin[:,0] = 1
 
-				z = np.random.uniform(-0.5,0.5,(configobj().batch_size,configobj().z_size))
+				z = np.random.uniform(-0.05,0.05,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
 				target_gen = np.zeros((configobj().batch_size, 10))
