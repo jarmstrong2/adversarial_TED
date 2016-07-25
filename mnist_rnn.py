@@ -224,7 +224,7 @@ if __name__ == "__main__" :
 		for i in range(configobj().iterations):
 			if ((i+1) % 100 == 0):
 				print("------------")
-				print("Step: {}".format(i))
+				print("Step: {}".format(i+1))
 				
 				print("***********")
 				print(cost_gen_g)
