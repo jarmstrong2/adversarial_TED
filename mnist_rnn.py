@@ -122,7 +122,7 @@ class RNN_MNIST_model(object):
 			init_state_input = tf.matmul(self.target, i_w) + i_b
 
 			init_state = ((init_state_input,init_state_input),)
-			for layer in range(config.lstm_layers_RNN_g - 1):
+			for layer in range(config.lstm_layers_RNN_d - 1):
 				init_state += ((init_state_input,init_state_input),)
 
 			lstm_variables = []
