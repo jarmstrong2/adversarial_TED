@@ -200,7 +200,7 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.7
 		z_size = 100
-		lstm_layers_RNN_g = 10
+		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
@@ -228,10 +228,10 @@ if __name__ == "__main__" :
 				print("------------")
 				print("Step: {}".format(i+1))
 				
-				print("***********")
+				print("************")
 				#print(cost_gen_g)
 				print("Loss: {}, Accuracy: {}".format(cost_gen_g, acc_gen_g))
-				print("***********")
+				print("************")
 
 				#print((cost + cost_gen) / 2)
 				print("Loss: {}, Accuracy: {}".format((cost + cost_gen) / 2, (acc + acc_gen)/2))
