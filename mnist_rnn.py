@@ -233,7 +233,7 @@ if __name__ == "__main__" :
 				print((cost + cost_gen) / 2)
 
 			# update the generator
-			if ((i+1) % 5 == 0):
+			if ((i+1) % 2 == 0):
 				z = np.random.uniform(-0.5,0.5,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
