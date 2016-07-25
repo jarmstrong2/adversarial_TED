@@ -227,7 +227,7 @@ if __name__ == "__main__" :
 				print("Step: {}".format(i))
 				
 				print("***********")
-				print(cost_gen)
+				print(cost_gen_g)
 				print("***********")
 
 				print((cost + cost_gen) / 2)
