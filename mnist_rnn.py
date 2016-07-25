@@ -222,11 +222,18 @@ if __name__ == "__main__" :
 		saver = tf.train.Saver()
 
 		for i in range(configobj().iterations):
+			if ((i+1) % 1000 == 0):
+				print("------------")
+				print("Step: {}".format(i))
+				
+				print("***********")
+				print(cost_gen)
+				print("***********")
+
+				print((cost + cost_gen) / 2)
+
 			# update the generator
 			if ((i+1) % 5 == 0):
-				if ((i+1) % 1000 == 0):
-					print("------------")
-					print("Step: {}".format(i))
 				z = np.random.uniform(-0.5,0.5,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
@@ -236,10 +243,8 @@ if __name__ == "__main__" :
 				target_gen_bin = np.zeros((configobj().batch_size, 2))
 				target_gen_bin[:,0] = 1
 
-				_, cost_gen, acc_gen = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
-				print("***********")
-				print(cost_gen)
-				print("***********")
+				_, cost_gen_g, acc_gen = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
+				
 			# update the discriminator
 			else :
 				batch_x, batch_y = mnist.train.next_batch(configobj().batch_size)
@@ -260,7 +265,6 @@ if __name__ == "__main__" :
 
 				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:target_bin, mod_d.target:batch_y, mod_d.image_input:batch_x})
 				_, cost_gen, acc_gen = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:target_gen_bin, mod_d.target:target_gen, mod_d.image_input:gen_x})
-				print((cost + cost_gen) / 2)
 
 
 		save_path = saver.save(session, "model.ckpt")
