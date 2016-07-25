@@ -201,9 +201,9 @@ if __name__ == "__main__" :
 		keep_prob = 0.7
 		z_size = 100
 		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 2
+		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 800
+		hidden_size_RNN_d = 600
 		#lr = 0.005
 		lr = 0.0002
 		max_grad_norm = 10
@@ -235,7 +235,7 @@ if __name__ == "__main__" :
 				print((cost + cost_gen) / 2)
 
 			# update the generator
-			if ((i+1) % 2 == 0):
+			if ((i+1) % 5 == 0):
 				z = np.random.uniform(-0.05,0.05,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
