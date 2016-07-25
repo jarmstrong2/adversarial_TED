@@ -75,7 +75,7 @@ class RNN_MNIST_model(object):
 			with tf.variable_scope("RNN_g") as vs:
 				for time_step in range(4):
 					if time_step > 0: tf.get_variable_scope().reuse_variables()
-					(cell_output, state) = cell(tf.relu(cell_input), state)
+					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
 					cell_output = tf.matmul(cell_output, h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
