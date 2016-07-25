@@ -207,7 +207,7 @@ if __name__ == "__main__" :
 		#lr = 0.005
 		lr = 0.0002
 		max_grad_norm = 10
-		iterations = 10**8
+		iterations = 10**5
 		init_scale = 0.001
 
 	with tf.Graph().as_default(), tf.Session() as session:
