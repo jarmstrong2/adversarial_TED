@@ -229,10 +229,12 @@ if __name__ == "__main__" :
 				print("Step: {}".format(i+1))
 				
 				print("***********")
-				print(cost_gen_g)
+				#print(cost_gen_g)
+				print("Loss: {}, Accuracy: {}".format(cost_gen_g, acc_gen_g))
 				print("***********")
 
-				print((cost + cost_gen) / 2)
+				#print((cost + cost_gen) / 2)
+				print("Loss: {}, Accuracy: {}".format((cost + cost_gen) / 2, (acc + acc_gen)/2))
 
 			# update the generator
 			if ((i+1) % 5 == 0):
@@ -245,7 +247,7 @@ if __name__ == "__main__" :
 				target_gen_bin = np.zeros((configobj().batch_size, 2))
 				target_gen_bin[:,0] = 1
 
-				_, cost_gen_g, acc_gen = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
+				_, cost_gen_g, acc_gen_g = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
 				
 			# update the discriminator
 			else :
