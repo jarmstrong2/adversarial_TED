@@ -200,7 +200,21 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.7
 		z_size = 100
-		lstm_layers_RNN_g = 6
+		lstm_layers_RNN_g = 8
+		lstm_layers_RNN_d = 2
+		hidden_size_RNN_g = 600
+		hidden_size_RNN_d = 400
+		#lr = 0.005
+		lr = 0.0002
+		max_grad_norm = 10
+		iterations = 10**5
+		init_scale = 0.001
+
+	class configobj_d(object):
+		batch_size = 2**8
+		keep_prob = 0.7
+		z_size = 100
+		lstm_layers_RNN_g = 8
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
@@ -218,7 +232,7 @@ if __name__ == "__main__" :
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_g = RNN_MNIST_model(configobj(), False, model_type="GEN")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
-			mod_d = RNN_MNIST_model(configobj(), True, model_type="DISC")
+			mod_d = RNN_MNIST_model(configobj_d(), True, model_type="DISC")
 
 		tf.initialize_all_variables().run()
 		saver = tf.train.Saver()
@@ -234,7 +248,7 @@ if __name__ == "__main__" :
 				print("************")
 
 				#print((cost + cost_gen) / 2)
-				print("Loss: {}, Accuracy: {}".format((cost + cost_gen) / 2, (acc + acc_gen)/2))
+				print("Loss: {}, Accuracy: {}".format(cost, acc))
 
 			# update the generator
 			if ((i+1) % 5 == 0):
@@ -267,9 +281,23 @@ if __name__ == "__main__" :
 
 				gen_x = session.run((mod_g.outputs), {mod_g.z:z, mod_g.target:target_gen, mod_g.target_bin:target_gen_bin})
 
-				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:target_bin, mod_d.target:batch_y, mod_d.image_input:batch_x})
-				_, cost_gen, acc_gen = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:target_gen_bin, mod_d.target:target_gen, mod_d.image_input:gen_x})
+				# trying to shuffle fake and real data
+				x = np.concatenate((batch_x, gen_x), axis=0)
+				t = np.concatenate((batch_y, target_gen), axis=0)
+				y = np.concatenate((target_bin, target_gen_bin), axis=0)
 
+				c = np.concatenate((x.reshape(len(x), -1), y.reshape(len(y), -1), t.reshape(len(t), -1)), axis=1)
+				
+				print(np.shape((x.reshape(len(x), -1))))
+				print(np.shape((y.reshape(len(y), -1))))
+				print(np.shape((t.reshape(len(t), -1))))
+				np.random.shuffle(c)
+
+				x = c[:, :x.size//len(x)].reshape(x.shape)
+				y = c[:, x.size//len(x):(x.size//len(x))+(y.size//len(y))].reshape(y.shape)
+				t = c[:, (x.size//len(x))+(y.size//len(y)):].reshape(t.shape)
+
+				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
 
 		save_path = saver.save(session, "model.ckpt")
 		print("Model saved in file: %s" % save_path)
