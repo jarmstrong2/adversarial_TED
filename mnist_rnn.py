@@ -222,7 +222,7 @@ if __name__ == "__main__" :
 		saver = tf.train.Saver()
 
 		for i in range(configobj().iterations):
-			if ((i+1) % 1000 == 0):
+			if ((i+1) % 100 == 0):
 				print("------------")
 				print("Step: {}".format(i))
 				
