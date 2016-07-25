@@ -197,7 +197,7 @@ def getinput(batch_x):
 
 if __name__ == "__main__" :
 	class configobj(object):
-		batch_size = 2*7
+		batch_size = 2**7
 		keep_prob = 0.7
 		z_size = 100
 		lstm_layers_RNN_g = 10
