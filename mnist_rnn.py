@@ -288,9 +288,6 @@ if __name__ == "__main__" :
 
 				c = np.concatenate((x.reshape(len(x), -1), y.reshape(len(y), -1), t.reshape(len(t), -1)), axis=1)
 				
-				print(np.shape((x.reshape(len(x), -1))))
-				print(np.shape((y.reshape(len(y), -1))))
-				print(np.shape((t.reshape(len(t), -1))))
 				np.random.shuffle(c)
 
 				x = c[:, :x.size//len(x)].reshape(x.shape)
