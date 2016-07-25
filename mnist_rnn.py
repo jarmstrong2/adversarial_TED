@@ -75,7 +75,7 @@ class RNN_MNIST_model(object):
 			with tf.variable_scope("RNN_g") as vs:
 				for time_step in range(4):
 					if time_step > 0: tf.get_variable_scope().reuse_variables()
-					(cell_output, state) = cell(cell_input, state)
+					(cell_output, state) = cell(tf.relu(cell_input), state)
 					cell_output = tf.matmul(cell_output, h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
@@ -200,10 +200,10 @@ if __name__ == "__main__" :
 		batch_size = 2*7
 		keep_prob = 0.7
 		z_size = 100
-		lstm_layers_RNN_g = 4
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_g = 10
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 600
+		hidden_size_RNN_d = 800
 		#lr = 0.005
 		lr = 0.0002
 		max_grad_norm = 10
