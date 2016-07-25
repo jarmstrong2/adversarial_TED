@@ -200,14 +200,14 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.7
 		z_size = 100
-		lstm_layers_RNN_g = 8
+		lstm_layers_RNN_g = 10
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		#lr = 0.005
 		lr = 0.0002
 		max_grad_norm = 10
-		iterations = 10**5
+		iterations = 2*(10**5)
 		init_scale = 0.001
 
 	class configobj_d(object):
