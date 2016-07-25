@@ -207,7 +207,7 @@ if __name__ == "__main__" :
 		#lr = 0.005
 		lr = 0.0002
 		max_grad_norm = 10
-		iterations = 2*(10**5)
+		iterations = 5*(10**5)
 		init_scale = 0.001
 
 	class configobj_d(object):
@@ -251,7 +251,7 @@ if __name__ == "__main__" :
 				print("Loss: {}, Accuracy: {}".format(cost, acc))
 
 			# update the generator
-			if ((i+1) % 5 == 0):
+			if ((i+1) % 3 == 0):
 				z = np.random.uniform(-0.05,0.05,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
