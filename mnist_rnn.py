@@ -201,7 +201,7 @@ if __name__ == "__main__" :
 		keep_prob = 0.7
 		z_size = 100
 		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 3
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		#lr = 0.005
@@ -215,7 +215,7 @@ if __name__ == "__main__" :
 		keep_prob = 0.7
 		z_size = 100
 		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 3
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		#lr = 0.005
