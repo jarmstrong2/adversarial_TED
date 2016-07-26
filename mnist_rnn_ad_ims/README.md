@@ -1,4 +1,4 @@
-![alt tag](0.png =100x20)
+![alt tag](0.png | width=100)
 ![alt tag](1.png)
 ![alt tag](2.png)
 ![alt tag](3.png)
