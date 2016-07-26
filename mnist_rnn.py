@@ -205,9 +205,9 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		#lr = 0.005
-		lr = 0.001
+		lr = 0.0005
 		max_grad_norm = 10
-		iterations = 1*(10**5)
+		iterations = 10*(10**5)
 		init_scale = 0.001
 
 	class configobj_d(object):
