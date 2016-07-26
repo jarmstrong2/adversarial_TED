@@ -1,4 +1,4 @@
-![](0.png | width=100)
+![alt tag](0.png)
 ![alt tag](1.png)
 ![alt tag](2.png)
 ![alt tag](3.png)
