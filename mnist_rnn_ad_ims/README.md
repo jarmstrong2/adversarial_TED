@@ -17,7 +17,6 @@ ___
 | lr                | 0.0002    |
 | iterations        | 5*(10**5) |
 ___
-| Tables        | Are           | Cool  |
 | ------------- |:-------------:| -----:|
 | col 3 is      | right-aligned | $1600 |
 | col 2 is      | centered      |   $12 |
