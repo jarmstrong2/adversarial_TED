@@ -234,7 +234,7 @@ if __name__ == "__main__" :
 		stepsingen = 0
 
 		for i in range(configobj().iterations):
-			if ((i+1) % 100 == 0):
+			if ((i+1) % 1000 == 0):
 				print("------------")
 				print("Step: {}".format(i+1))
 				
