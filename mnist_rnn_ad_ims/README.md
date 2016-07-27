@@ -10,7 +10,8 @@
 ![alt tag](9.png)
 ___
 | Variable          | Value     |
-| ----------------- | ----------|
+| :---------------- | :---------|
+| timesteps         | 4         |
 | lstm_layers_RNN_g | 10        |
 | lstm_layers_RNN_d | 2         |
 | hidden_size_RNN_g | 600       |
