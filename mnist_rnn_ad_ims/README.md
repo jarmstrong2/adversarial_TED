@@ -8,3 +8,13 @@
 ![alt tag](7.png)
 ![alt tag](8.png)
 ![alt tag](9.png)
+
+| Variable          | Value     |
+| :---------------- | :---------|
+| timesteps         | 4         |
+| lstm_layers_RNN_g | 10        |
+| lstm_layers_RNN_d | 2         |
+| hidden_size_RNN_g | 600       |
+| hidden_size_RNN_d | 400       |
+| lr                | 0.0002    |
+| iterations        | 5*(10**5) |
