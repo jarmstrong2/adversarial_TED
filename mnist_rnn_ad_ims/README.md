@@ -9,7 +9,8 @@
 ![alt tag](8.png)
 ![alt tag](9.png)
 ___
-| ----------------- | ---------:|
+|         |           |
+| ----------------- | ----------|
 | lstm_layers_RNN_g | 10        |
 | lstm_layers_RNN_d | 3         |
 | hidden_size_RNN_g | 600       |
