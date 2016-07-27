@@ -79,7 +79,7 @@ class RNN_MNIST_model(object):
 			with tf.variable_scope("RNN_g") as vs:
 				for time_step in range(1):
 					if time_step > 0: tf.get_variable_scope().reuse_variables()
-					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
+					(cell_output, state) = cell(cell_input, state)
 					cell_output = tf.matmul(cell_output, h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
@@ -274,7 +274,7 @@ if __name__ == "__main__" :
 
 			# update the generator
 			if ((i+1) % 3 == 0):
-				z = np.random.uniform(-0.05,0.05,(configobj().batch_size,configobj().z_size))
+				z = np.random.uniform(-1,1,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
 				target_gen = np.zeros((configobj().batch_size, 10))
@@ -297,7 +297,7 @@ if __name__ == "__main__" :
 				target_bin = np.zeros((configobj().batch_size, 2))
 				target_bin[:,0] = 1
 
-				z = np.random.uniform(-0.05,0.05,(configobj().batch_size,configobj().z_size))
+				z = np.random.uniform(-1,1,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
 				target_gen = np.zeros((configobj().batch_size, 10))
@@ -323,8 +323,9 @@ if __name__ == "__main__" :
 
 				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
 
-		save_path = saver.save(session, "model.ckpt")
-		print("Model saved in file: %s" % save_path)
+			if ((i+1) % 100000 == 0):
+				save_path = saver.save(session, "model.ckpt")
+				print("Model saved in file: %s" % save_path)
 
 
 
