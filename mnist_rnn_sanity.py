@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import matplotlib.pyplot as plt
 
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
@@ -189,7 +190,7 @@ if __name__ == "__main__" :
 		keep_prob = 0.5
 		z_size = 100
 		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 3
+		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 500
 		hidden_size_RNN_d = 400
 		#lr = 0.005
@@ -203,7 +204,7 @@ if __name__ == "__main__" :
 		keep_prob = 0.5
 		z_size = 100
 		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 3
+		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 500
 		hidden_size_RNN_d = 400
 		#lr = 0.005
@@ -224,6 +225,10 @@ if __name__ == "__main__" :
 
 		tf.initialize_all_variables().run()
 		saver = tf.train.Saver()
+		x = []
+		y = []
+		accumulator = 0
+		stepsingen = 0
 
 		for i in range(configobj().iterations):
 			if ((i+1) % 100 == 0):
@@ -238,6 +243,16 @@ if __name__ == "__main__" :
 				#print((cost + cost_gen) / 2)
 				print("Loss: {}, Accuracy: {}".format(cost, acc))
 
+				x.append(i)
+				y.append(accumulator/stepsingen)
+
+				accumulator = 0
+				stepsingen = 0
+
+				plt.plot(x, y, 'ro')
+				plt.show()
+
+
 			# update the generator
 			if ((i+1) % 3 == 0):
 				z = np.random.uniform(-0.05,0.05,(configobj().batch_size,configobj().z_size))
@@ -251,6 +266,8 @@ if __name__ == "__main__" :
 
 				_, cost_gen_g, acc_gen_g = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
 				
+				accumulator += acc_gen_g
+				stepsingen += 1
 			# update the discriminator
 			else :
 				batch_x, batch_y = mnist.train.next_batch(configobj().batch_size)
