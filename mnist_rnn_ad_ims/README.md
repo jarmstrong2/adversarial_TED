@@ -8,7 +8,6 @@
 ![alt tag](7.png)
 ![alt tag](8.png)
 ![alt tag](9.png)
-___
 | Variable          | Value     |
 | :---------------- | :---------|
 | timesteps         | 4         |
@@ -18,5 +17,3 @@ ___
 | hidden_size_RNN_d | 400       |
 | lr                | 0.0002    |
 | iterations        | 5*(10**5) |
-___
-
