@@ -250,8 +250,8 @@ if __name__ == "__main__" :
 				stepsingen = 0
 
 				plt.plot(x_plot, y_plot, 'ro')
-				classification = plt.show()
-				plt.imsave('classification.png', classification)
+				#classification = plt.show()
+				plt.savefig('classification.png')
 
 
 			# update the generator
