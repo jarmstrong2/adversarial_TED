@@ -228,10 +228,15 @@ if __name__ == "__main__" :
 
 		tf.initialize_all_variables().run()
 		saver = tf.train.Saver()
-		x_plot = []
-		y_plot = []
-		accumulator = 0
-		stepsingen = 0
+		x_plot_class = []
+		y_plot_class = []
+		accumulator_class = 0
+		stepsingen_class = 0
+
+		x_plot_loss= []
+		y_plot_loss = []
+		accumulator_loss = 0
+		stepsingen_loss = 0
 
 		for i in range(configobj().iterations):
 			if ((i+1) % 1000 == 0):
@@ -246,15 +251,25 @@ if __name__ == "__main__" :
 				#print((cost + cost_gen) / 2)
 				print("Loss: {}, Accuracy: {}".format(cost, acc))
 
-				x_plot.append(i)
-				y_plot.append(accumulator/stepsingen)
+				x_plot_class.append(i)
+				y_plot_class.append(accumulator_class/stepsingen_class)
 
-				accumulator = 0
-				stepsingen = 0
+				accumulator_class = 0
+				stepsingen_class = 0
 
 				plt.figure()
-				plt.plot(x_plot, y_plot, 'ro')
+				plt.plot(x_plot_class, y_plot_class, 'ro')
 				plt.savefig('classification.png')
+
+				x_plot_loss.append(i)
+				y_plot_loss.append(accumulator_loss/stepsingen_loss)
+
+				accumulator_loss = 0
+				stepsingen_loss = 0
+
+				plt.figure()
+				plt.plot(x_plot_loss, y_plot_loss 'ro')
+				plt.savefig('loss.png')
 
 
 			# update the generator
@@ -270,8 +285,11 @@ if __name__ == "__main__" :
 
 				_, cost_gen_g, acc_gen_g = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
 				
-				accumulator += acc_gen_g
-				stepsingen += 1
+				accumulator_class += acc_gen_g
+				stepsingen_class += 1
+
+				accumulator_loss += cost_gen_g
+				stepsingen_loss += 1
 			# update the discriminator
 			else :
 				batch_x, batch_y = mnist.train.next_batch(configobj().batch_size)
