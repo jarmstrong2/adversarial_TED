@@ -268,7 +268,7 @@ if __name__ == "__main__" :
 				stepsingen_loss = 0
 
 				plt.figure()
-				plt.plot(x_plot_loss, y_plot_loss 'ro')
+				plt.plot(x_plot_loss, y_plot_loss, 'ro')
 				plt.savefig('loss.png')
 
 
