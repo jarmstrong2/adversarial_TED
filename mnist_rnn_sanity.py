@@ -225,8 +225,8 @@ if __name__ == "__main__" :
 
 		tf.initialize_all_variables().run()
 		saver = tf.train.Saver()
-		x = []
-		y = []
+		x_plot = []
+		y_plot = []
 		accumulator = 0
 		stepsingen = 0
 
@@ -243,13 +243,13 @@ if __name__ == "__main__" :
 				#print((cost + cost_gen) / 2)
 				print("Loss: {}, Accuracy: {}".format(cost, acc))
 
-				x.append(i)
-				y.append(accumulator/stepsingen)
+				x_plot.append(i)
+				y_plot.append(accumulator/stepsingen)
 
 				accumulator = 0
 				stepsingen = 0
 
-				plt.plot(x, y, 'ro')
+				plt.plot(x_plot, y_plot, 'ro')
 				classification = plt.imshow()
 				plt.imsave('classification.png', classification)
 
