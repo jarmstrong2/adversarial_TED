@@ -9,7 +9,7 @@
 ![alt tag](8.png)
 ![alt tag](9.png)
 ___
-|         |           |
+| Variable          | Value     |
 | ----------------- | ----------|
 | lstm_layers_RNN_g | 10        |
 | lstm_layers_RNN_d | 3         |
@@ -18,8 +18,4 @@ ___
 | lr                | 0.0002    |
 | iterations        | 5*(10**5) |
 ___
-|         |           |   |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+
