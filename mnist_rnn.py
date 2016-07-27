@@ -208,7 +208,7 @@ if __name__ == "__main__" :
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 5*(10**5)
-		init_scale = 0.001
+		init_scale = 0.01
 
 	class configobj_d(object):
 		batch_size = 2**8
