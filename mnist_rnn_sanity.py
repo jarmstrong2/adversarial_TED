@@ -252,10 +252,8 @@ if __name__ == "__main__" :
 				accumulator = 0
 				stepsingen = 0
 
-				#plt.plot(x_plot, y_plot, 'ro')
 				plt.figure()
-				plt.plot([1,2,3])
-				#classification = plt.show()
+				plt.plot(x_plot, y_plot, 'ro')
 				plt.savefig('classification.png')
 
 
