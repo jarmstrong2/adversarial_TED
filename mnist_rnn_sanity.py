@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib
 # Force matplotlib to not use any Xwindows backend.
 matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
@@ -252,10 +253,10 @@ if __name__ == "__main__" :
 				stepsingen = 0
 
 				#plt.plot(x_plot, y_plot, 'ro')
-				matplotlib.pyplot.figure()
-				matplotlib.pyplot.plot([1,2,3])
+				plt.figure()
+				plt.plot([1,2,3])
 				#classification = plt.show()
-				matplotlib.pyplot.savefig('classification.png')
+				plt.savefig('classification.png')
 
 
 			# update the generator
