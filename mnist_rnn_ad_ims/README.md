@@ -8,6 +8,7 @@
 ![alt tag](7.png)
 ![alt tag](8.png)
 ![alt tag](9.png)
+
 | Variable          | Value     |
 | :---------------- | :---------|
 | timesteps         | 4         |
