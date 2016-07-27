@@ -4,6 +4,7 @@
 ###### hidden_size_RNN_d = 400
 ###### lr = 0.0002
 ###### iterations = 5*(10**5)
+___
 
 ![alt tag](0.png)
 ![alt tag](1.png)
