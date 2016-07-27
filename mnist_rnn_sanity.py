@@ -250,7 +250,7 @@ if __name__ == "__main__" :
 				stepsingen = 0
 
 				plt.plot(x_plot, y_plot, 'ro')
-				classification = plt.imshow()
+				classification = plt.show()
 				plt.imsave('classification.png', classification)
 
 
