@@ -173,7 +173,7 @@ class RNN_MNIST_model(object):
 			self.cost = tf.abs(cost_theta - final_prob)
 			self.cost = tf.pow(self.cost, self.target_bin)
 			self.cost = -tf.log(self.cost)
-			self.cost = tf.reduce_mean(tf.reduce_sum(self.cost, 1), tf.float32)
+			self.cost = tf.reduce_mean(tf.cast(tf.reduce_sum(self.cost, 1), tf.float32))
 
 
 			self.lr = config.lr
