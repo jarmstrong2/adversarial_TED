@@ -146,8 +146,8 @@ class RNN_MNIST_model(object):
 				self.trainables_variables += lstm_variables
 
 			# linear trans for hidden_size of lstm -> single value
-			j_w = tf.get_variable("RNN_j_prob_w", [hidden_size_RNN_d, 1])
-			j_b = tf.get_variable("RNN_j_prob_b", [1])
+			j_w = tf.get_variable("RNN_j_prob_w", [hidden_size_RNN_d, 2])
+			j_b = tf.get_variable("RNN_j_prob_b", [2])
 
 			if model_type == "DISC":
 				self.trainables_variables.append(j_w)
@@ -155,27 +155,23 @@ class RNN_MNIST_model(object):
 
 			#final_output = tf.slice(output, [0,0,0], [batch_size, 1, hidden_size_RNN_d])
 			final_output = tf.squeeze(output, [1])
-			#final_output = tf.sigmoid(final_output)
+			final_output = tf.sigmoid(final_output)
 			final_trans = tf.matmul(final_output, j_w) + j_b
 			
-			# self.cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(final_trans, self.target_bin))
+			self.cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(final_trans, self.target_bin))
 
-			# correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
-			# self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
+			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-			final_prob = tf.sigmoid(final_trans)
+			# final_prob = tf.sigmoid(final_trans)
 
-			#self.accuracy = tf.reduce_mean(tf.cast(final_prob, tf.float32))
-
-			self.outputs = final_prob
-			final_prob = tf.tile(final_prob,[1,2])
-			cost_theta = tf.concat(1, [tf.zeros([batch_size, 1]), tf.ones([batch_size, 1])])
-			self.cost = tf.abs(cost_theta - final_prob)
-			self.cost = tf.pow(self.cost, self.target_bin)
-			self.accuracy = tf.reduce_mean(tf.cast(reduce_sum(self.cost, 1), tf.float32))
-			self.cost = -tf.log(self.cost)
-			self.cost = tf.reduce_mean(tf.cast(tf.reduce_sum(self.cost, 1), tf.float32))
-
+			# self.outputs = final_prob
+			# final_prob = tf.tile(final_prob,[1,2])
+			# cost_theta = tf.concat(1, [tf.zeros([batch_size, 1]), tf.ones([batch_size, 1])])
+			# self.cost = tf.abs(cost_theta - final_prob)
+			# self.cost = tf.pow(self.cost, self.target_bin)
+			# self.cost = -tf.log(self.cost)
+			# self.cost = tf.reduce_sum(self.cost, 1)
 
 			self.lr = config.lr
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
@@ -197,8 +193,8 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 4
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_g = 12
+		lstm_layers_RNN_d = 8
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 600
 		#lr = 0.005
@@ -211,8 +207,8 @@ if __name__ == "__main__" :
 		batch_size = 2**8
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 4
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_g = 12
+		lstm_layers_RNN_d = 8
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 600
 		#lr = 0.005
