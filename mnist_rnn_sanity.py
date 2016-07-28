@@ -158,20 +158,22 @@ class RNN_MNIST_model(object):
 			final_output = tf.sigmoid(final_output)
 			final_trans = tf.matmul(final_output, j_w) + j_b
 			
-			self.cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(final_trans, self.target_bin))
+			# self.cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(final_trans, self.target_bin))
 
-			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
-			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+			# correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
+			# self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-			# final_prob = tf.sigmoid(final_trans)
+			final_prob = tf.sigmoid(final_trans)
 
-			# self.outputs = final_prob
-			# final_prob = tf.tile(final_prob,[1,2])
-			# cost_theta = tf.concat(1, [tf.zeros([batch_size, 1]), tf.ones([batch_size, 1])])
-			# self.cost = tf.abs(cost_theta - final_prob)
-			# self.cost = tf.pow(self.cost, self.target_bin)
-			# self.cost = -tf.log(self.cost)
-			# self.cost = tf.reduce_sum(self.cost, 1)
+			self.accuracy = tf.reduce_mean(tf.cast(final_prob, tf.float32))
+
+			self.outputs = final_prob
+			final_prob = tf.tile(final_prob,[1,2])
+			cost_theta = tf.concat(1, [tf.zeros([batch_size, 1]), tf.ones([batch_size, 1])])
+			self.cost = tf.abs(cost_theta - final_prob)
+			self.cost = tf.pow(self.cost, self.target_bin)
+			self.cost = -tf.log(self.cost)
+			self.cost = tf.reduce_sum(self.cost, 1)
 
 			self.lr = config.lr
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
