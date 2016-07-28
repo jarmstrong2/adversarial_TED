@@ -193,13 +193,13 @@ if __name__ == "__main__" :
 		keep_prob = 0.5
 		z_size = 100
 		lstm_layers_RNN_g = 12
-		lstm_layers_RNN_d = 6
+		lstm_layers_RNN_d = 8
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 600
 		#lr = 0.005
 		lr = 0.0002
 		max_grad_norm = 5
-		iterations = 5*(10**5)
+		iterations = (10**6)
 		init_scale = 0.01
 
 	class configobj_d(object):
@@ -207,14 +207,14 @@ if __name__ == "__main__" :
 		keep_prob = 0.5
 		z_size = 100
 		lstm_layers_RNN_g = 12
-		lstm_layers_RNN_d = 6
+		lstm_layers_RNN_d = 8
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 600
 		#lr = 0.005
 		lr = 0.001
 		max_grad_norm = 5
 		iterations = 10**5
-		init_scale = 0.001
+		init_scale = 0.01
 
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
