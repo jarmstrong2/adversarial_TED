@@ -165,13 +165,14 @@ class RNN_MNIST_model(object):
 
 			final_prob = tf.sigmoid(final_trans)
 
-			self.accuracy = tf.reduce_mean(tf.cast(final_prob, tf.float32))
+			#self.accuracy = tf.reduce_mean(tf.cast(final_prob, tf.float32))
 
 			self.outputs = final_prob
 			final_prob = tf.tile(final_prob,[1,2])
 			cost_theta = tf.concat(1, [tf.zeros([batch_size, 1]), tf.ones([batch_size, 1])])
 			self.cost = tf.abs(cost_theta - final_prob)
 			self.cost = tf.pow(self.cost, self.target_bin)
+			self.accuracy = tf.reduce_mean(tf.cast(reduce_sum(self.cost, 1), tf.float32))
 			self.cost = -tf.log(self.cost)
 			self.cost = tf.reduce_mean(tf.cast(tf.reduce_sum(self.cost, 1), tf.float32))
 
