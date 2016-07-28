@@ -155,7 +155,7 @@ class RNN_MNIST_model(object):
 
 			#final_output = tf.slice(output, [0,0,0], [batch_size, 1, hidden_size_RNN_d])
 			final_output = tf.squeeze(output, [1])
-			final_output = tf.sigmoid(final_output)
+			#final_output = tf.sigmoid(final_output)
 			final_trans = tf.matmul(final_output, j_w) + j_b
 			
 			# self.cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(final_trans, self.target_bin))
