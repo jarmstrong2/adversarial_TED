@@ -25,7 +25,7 @@ class RNN_MNIST_model(object):
 		self.target_bin = tf.placeholder(tf.float32, [batch_size, 2])
 
 		self.trainables_variables = []
-		self.trainables_variables = []
+		self.trainables_variable = []
 
 		# --------------RNN_g----------------
 
