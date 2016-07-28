@@ -116,8 +116,8 @@ class RNN_MNIST_model(object):
 			cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * config.lstm_layers_RNN_d, state_is_tuple=True)
 
 			# linear trans for [x_image_size * y_image_size + num_classes] -> hidden_size_RNN_g
-			i_w = tf.get_variable("RNN_d_target_w", [10, hidden_size_RNN_d])
-			i_b = tf.get_variable("RNN_d_target_b", [hidden_size_RNN_d])
+			i_w = tf.get_variable("RNN_i_target_w", [10, hidden_size_RNN_d])
+			i_b = tf.get_variable("RNN_i_target_b", [hidden_size_RNN_d])
 
 			if model_type == "DISC":
 				self.trainables_variables.append(i_w)
@@ -194,8 +194,8 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 12
 		lstm_layers_RNN_d = 6
-		hidden_size_RNN_g = 500
-		hidden_size_RNN_d = 500
+		hidden_size_RNN_g = 600
+		hidden_size_RNN_d = 600
 		#lr = 0.005
 		lr = 0.0002
 		max_grad_norm = 5
@@ -208,8 +208,8 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 12
 		lstm_layers_RNN_d = 6
-		hidden_size_RNN_g = 500
-		hidden_size_RNN_d = 500
+		hidden_size_RNN_g = 600
+		hidden_size_RNN_d = 600
 		#lr = 0.005
 		lr = 0.001
 		max_grad_norm = 5
