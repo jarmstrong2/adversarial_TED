@@ -25,6 +25,7 @@ class RNN_MNIST_model(object):
 		self.target_bin = tf.placeholder(tf.float32, [batch_size, 2])
 
 		self.trainables_variables = []
+		self.trainables_variables = []
 
 		# --------------RNN_g----------------
 
@@ -173,10 +174,10 @@ class RNN_MNIST_model(object):
 			# self.cost = tf.reduce_sum(self.cost, 1)
 
 			self.lr = config.lr
-			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
+			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variable),
 			                                   config.max_grad_norm)
 			self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr)
-			self.train_op = self.optimizer.apply_gradients(zip(grads, self.trainables_variables))
+			self.train_op = self.optimizer.apply_gradients(zip(grads, self.trainables_variable))
 
 		# ------------------------------------
 
