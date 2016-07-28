@@ -90,7 +90,7 @@ class RNN_MNIST_model(object):
 				lstm_variables = [v for v in tf.all_variables()
                     if v.name.startswith(vs.name)]
 
-			self.trainables_variables += lstm_variables
+			self.trainables_variables.append(lstm_variables)
 
 			outputs_RNN_g = tf.transpose(output, perm=[1,0,2])
 			outputs_RNN_g = outputs_RNN_g
@@ -143,7 +143,7 @@ class RNN_MNIST_model(object):
                     if v.name.startswith(vs.name)]				
             
 			if model_type == "DISC":
-				self.trainables_variables += lstm_variables
+				self.trainables_variables.append(lstm_variables)
 
 			# linear trans for hidden_size of lstm -> single value
 			j_w = tf.get_variable("RNN_j_prob_w", [hidden_size_RNN_d, 2])
