@@ -79,7 +79,7 @@ class RNN_MNIST_model(object):
 			with tf.variable_scope("RNN_g") as vs:
 				for time_step in range(1):
 					if time_step > 0: tf.get_variable_scope().reuse_variables()
-					(cell_output, state) = cell(tf.relu(cell_input), state)
+					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
 					cell_output = tf.matmul(cell_output, h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
@@ -93,7 +93,7 @@ class RNN_MNIST_model(object):
 			self.trainables_variables += lstm_variables
 
 			outputs_RNN_g = tf.transpose(output, perm=[1,0,2])
-			outputs_RNN_g = tf.relu(outputs_RNN_g)
+			outputs_RNN_g = tf.nn.relu(outputs_RNN_g)
 
 			if model_type == "GEN":	
 				self.outputs = outputs_RNN_g
