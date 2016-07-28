@@ -146,8 +146,8 @@ class RNN_MNIST_model(object):
 				self.trainables_variables += lstm_variables
 
 			# linear trans for hidden_size of lstm -> single value
-			j_w = tf.get_variable("RNN_j_prob_w", [hidden_size_RNN_d, 2])
-			j_b = tf.get_variable("RNN_j_prob_b", [2])
+			j_w = tf.get_variable("RNN_j_prob_w", [hidden_size_RNN_d, 1])
+			j_b = tf.get_variable("RNN_j_prob_b", [1])
 
 			if model_type == "DISC":
 				self.trainables_variables.append(j_w)
