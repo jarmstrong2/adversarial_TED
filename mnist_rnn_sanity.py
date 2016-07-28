@@ -109,7 +109,7 @@ class RNN_MNIST_model(object):
 				self.image_input = outputs_RNN_g
 
 			lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(hidden_size_RNN_d, forget_bias=0.0, state_is_tuple=True)
-			if is_training and model == "DISC" and config.keep_prob < 1:
+			if is_training and model_type == "DISC" and config.keep_prob < 1:
 				lstm_cell = tf.nn.rnn_cell.DropoutWrapper(
 	    			lstm_cell, output_keep_prob=config.keep_prob
 	    		)
