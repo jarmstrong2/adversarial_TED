@@ -109,7 +109,7 @@ class RNN_MNIST_model(object):
 				self.image_input = outputs_RNN_g
 
 			lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(hidden_size_RNN_d, forget_bias=0.0, state_is_tuple=True)
-			if is_training and config.keep_prob < 1:
+			if is_training and model == "DISC" and config.keep_prob < 1:
 				lstm_cell = tf.nn.rnn_cell.DropoutWrapper(
 	    			lstm_cell, output_keep_prob=config.keep_prob
 	    		)
@@ -185,21 +185,21 @@ if __name__ == "__main__" :
 		keep_prob = 0.5
 		z_size = 100
 		lstm_layers_RNN_g = 8
-		lstm_layers_RNN_d = 6
+		lstm_layers_RNN_d = 8
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 600
 		#lr = 0.005
 		lr = 0.001
 		max_grad_norm = 5
 		iterations = (10**6)
-		init_scale = 0.001
+		init_scale = 0.01
 
-	class configobj_d(object):
-		batch_size = 2**8
+	class configobj_g(object):
+		batch_size = 2**6
 		keep_prob = 0.5
 		z_size = 100
 		lstm_layers_RNN_g = 8
-		lstm_layers_RNN_d = 6
+		lstm_layers_RNN_d = 8
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 600
 		#lr = 0.005
@@ -214,9 +214,9 @@ if __name__ == "__main__" :
 		with tf.variable_scope("model_full", reuse=None, initializer=initializer):
 			mod_f = RNN_MNIST_model(configobj(), True, model_type="FULL")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
-			mod_g = RNN_MNIST_model(configobj(), False, model_type="GEN")
+			mod_g = RNN_MNIST_model(configobj_g(), False, model_type="GEN")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
-			mod_d = RNN_MNIST_model(configobj_d(), True, model_type="DISC")
+			mod_d = RNN_MNIST_model(configobj(), True, model_type="DISC")
 
 		tf.initialize_all_variables().run()
 		saver = tf.train.Saver()
@@ -265,7 +265,7 @@ if __name__ == "__main__" :
 
 
 			# update the generator
-			if ((i+1) % 4 == 0):
+			if ((i+1) % 3 == 0):
 				z = np.random.uniform(-1,1,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
@@ -284,18 +284,18 @@ if __name__ == "__main__" :
 				stepsingen_loss += 1
 			# update the discriminator
 			else :
-				batch_x, batch_y = mnist.train.next_batch(configobj().batch_size)
+				batch_x, batch_y = mnist.train.next_batch(configobj().batch_size/2)
 				batch_x = getinput(batch_x)
-				target_bin = np.zeros((configobj().batch_size, 2))
+				target_bin = np.zeros((configobj().batch_size/2, 2))
 				target_bin[:,0] = 1
 
-				z = np.random.uniform(-1,1,(configobj().batch_size,configobj().z_size))
+				z = np.random.uniform(-1,1,(configobj().batch_size/2,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
-				target_gen = np.zeros((configobj().batch_size, 10))
+				target_gen = np.zeros((configobj().batch_size/2, 10))
 				ind = [np.random.choice(10) for row in target_gen]
 				target_gen[range(target_gen.shape[0]), ind] = 1
-				target_gen_bin = np.zeros((configobj().batch_size, 2))
+				target_gen_bin = np.zeros((configobj().batch_size/2, 2))
 				target_gen_bin[:,1] = 1
 
 				gen_x = session.run((mod_g.outputs), {mod_g.z:z, mod_g.target:target_gen, mod_g.target_bin:target_gen_bin})
