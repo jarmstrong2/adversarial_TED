@@ -93,7 +93,6 @@ class RNN_MNIST_model(object):
 			self.trainables_variables += lstm_variables
 
 			outputs_RNN_g = tf.transpose(output, perm=[1,0,2])
-			outputs_RNN_g = tf.nn.relu(outputs_RNN_g)
 
 			if model_type == "GEN":	
 				self.outputs = outputs_RNN_g
@@ -140,7 +139,8 @@ class RNN_MNIST_model(object):
 		      	)
 
 				lstm_variables = [v for v in tf.all_variables()
-                    if v.name.startswith(vs.name)]				
+                    if v.name.startswith(vs.name)]	
+                print(len(lstm_variables))			
             
 			if model_type == "DISC":
 				self.trainables_variables += lstm_variables
