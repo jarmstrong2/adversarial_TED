@@ -215,10 +215,10 @@ if __name__ == "__main__" :
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
 
-		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
+		with tf.variable_scope("model_full", reuse=None, initializer=initializer):
 			mod_f = RNN_MNIST_model(configobj(), True, model_type="FULL")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
-			mod_g = RNN_MNIST_model(configobj_g(), False, model_type="GEN")
+			mod_g = RNN_MNIST_model(configobj_g(), True, model_type="GEN")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_d = RNN_MNIST_model(configobj(), True, model_type="DISC")
 
