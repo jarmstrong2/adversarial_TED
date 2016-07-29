@@ -139,8 +139,7 @@ class RNN_MNIST_model(object):
 		      	)
 
 				lstm_variables = [v for v in tf.all_variables()
-                    if v.name.startswith(vs.name)]	
-				print(len(lstm_variables))			
+                    if v.name.startswith(vs.name)]		
             
 			if model_type == "DISC":
 				self.trainables_variables += lstm_variables
@@ -286,6 +285,7 @@ if __name__ == "__main__" :
 			else :
 				batch_x, batch_y = mnist.train.next_batch(configobj().batch_size/2)
 				batch_x = getinput(batch_x)
+				print(batch_x);
 				target_bin = np.zeros((configobj().batch_size/2, 2))
 				target_bin[:,0] = 1
 
