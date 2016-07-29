@@ -48,10 +48,10 @@ class RNN_MNIST_model(object):
 			init_input = tf.concat(1, [init_image, self.target])
 
 			lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(hidden_size_RNN_g, forget_bias=0.0, state_is_tuple=True)
-			if is_training and config.keep_prob < 1:
-				lstm_cell = tf.nn.rnn_cell.DropoutWrapper(
-	    			lstm_cell, output_keep_prob=config.keep_prob
-	    		)
+			# if is_training and config.keep_prob < 1:
+			# 	lstm_cell = tf.nn.rnn_cell.DropoutWrapper(
+	  #   			lstm_cell, output_keep_prob=config.keep_prob
+	  #   		)
 			cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * config.lstm_layers_RNN_g, state_is_tuple=True)
 
 			# linear trans for [x_image_size * y_image_size + num_classes] -> hidden_size_RNN_g
@@ -69,8 +69,8 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(h_b)
 
 			output = []
-			if is_training:
-				init_input = tf.nn.dropout(init_input, config.keep_prob)
+			# if is_training:
+			# 	init_input = tf.nn.dropout(init_input, config.keep_prob)
 			cell_input = tf.matmul(init_input, g_w) + g_b
 			self.state = state = collected_state
 
@@ -83,8 +83,8 @@ class RNN_MNIST_model(object):
 					cell_output = tf.matmul(cell_output, h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
-					if is_training:
-						new_input = tf.nn.dropout(new_input, config.keep_prob)
+					# if is_training:
+					# 	new_input = tf.nn.dropout(new_input, config.keep_prob)
 					cell_input = tf.matmul(new_input, g_w) + g_b
 
 				lstm_variables = [v for v in tf.all_variables()
@@ -218,7 +218,7 @@ if __name__ == "__main__" :
 		with tf.variable_scope("model_full", reuse=None, initializer=initializer):
 			mod_f = RNN_MNIST_model(configobj(), True, model_type="FULL")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
-			mod_g = RNN_MNIST_model(configobj_g(), True, model_type="GEN")
+			mod_g = RNN_MNIST_model(configobj_g(), False, model_type="GEN")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_d = RNN_MNIST_model(configobj(), True, model_type="DISC")
 
