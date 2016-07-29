@@ -194,7 +194,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_d = 800
 		#lr = 0.005
 		lr = 0.0002
-		max_grad_norm = 1
+		max_grad_norm = 10
 		iterations = (10**6)
 		init_scale = 0.001
 
@@ -208,7 +208,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_d = 800
 		#lr = 0.005
 		lr = 0.0002
-		max_grad_norm = 1
+		max_grad_norm = 10
 		iterations = 10**5
 		init_scale = 0.01
 
