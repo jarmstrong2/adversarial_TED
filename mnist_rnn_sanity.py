@@ -93,7 +93,8 @@ class RNN_MNIST_model(object):
 			self.trainables_variables += lstm_variables
 
 			outputs_RNN_g = tf.transpose(output, perm=[1,0,2])
-			outputs_RNN_g = tf.sigmoid(outputs_RNN_g)
+			outputs_RNN_g = tf.relu(outputs_RNN_g)
+			outputs_RNN_g = tf.clip_by_value(outputs_RNN_g, 0, 1)
 
 			if model_type == "GEN":	
 				self.outputs = outputs_RNN_g
