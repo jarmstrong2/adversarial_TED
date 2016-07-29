@@ -140,7 +140,7 @@ class RNN_MNIST_model(object):
 
 				lstm_variables = [v for v in tf.all_variables()
                     if v.name.startswith(vs.name)]	
-                print(len(lstm_variables))			
+				print(len(lstm_variables))			
             
 			if model_type == "DISC":
 				self.trainables_variables += lstm_variables
