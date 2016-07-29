@@ -94,7 +94,7 @@ class RNN_MNIST_model(object):
 
 			outputs_RNN_g = tf.transpose(output, perm=[1,0,2])
 			outputs_RNN_g = tf.sigmoid(outputs_RNN_g)
-			outputs_RNN_g = tf.round(outputs_RNN_g)
+			#outputs_RNN_g = tf.round(outputs_RNN_g)
 
 			if model_type == "GEN":	
 				self.outputs = outputs_RNN_g
