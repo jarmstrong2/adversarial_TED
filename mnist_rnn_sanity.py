@@ -301,7 +301,7 @@ if __name__ == "__main__" :
 				target_gen_bin[:,1] = 1
 
 				gen_x = session.run((mod_g.outputs), {mod_g.z:z, mod_g.target:target_gen, mod_g.target_bin:target_gen_bin})
-				print(gen_x)
+				
 				# trying to shuffle fake and real data
 				x = np.concatenate((batch_x, gen_x), axis=0)
 				t = np.concatenate((batch_y, target_gen), axis=0)
