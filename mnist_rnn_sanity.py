@@ -188,22 +188,22 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 8
-		lstm_layers_RNN_d = 8
+		lstm_layers_RNN_g = 4
+		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 600
 		#lr = 0.005
-		lr = 0.001
+		lr = 0.0002
 		max_grad_norm = 5
 		iterations = (10**6)
-		init_scale = 0.01
+		init_scale = 0.001
 
 	class configobj_g(object):
 		batch_size = 2**6
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 8
-		lstm_layers_RNN_d = 8
+		lstm_layers_RNN_g = 4
+		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 600
 		#lr = 0.005
@@ -304,7 +304,6 @@ if __name__ == "__main__" :
 				target_gen_bin[:,1] = 1
 
 				gen_x = session.run((mod_g.outputs), {mod_g.z:z, mod_g.target:target_gen, mod_g.target_bin:target_gen_bin})
-				print(np.max(gen_x))
 				# trying to shuffle fake and real data
 				x = np.concatenate((batch_x, gen_x), axis=0)
 				t = np.concatenate((batch_y, target_gen), axis=0)
