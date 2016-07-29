@@ -1,13 +1,13 @@
-![alt tag](0.png)
-![alt tag](1.png)
-![alt tag](2.png)
-![alt tag](3.png)
-![alt tag](4.png)
-![alt tag](5.png)
-![alt tag](6.png)
-![alt tag](7.png)
-![alt tag](8.png)
-![alt tag](9.png)
+![alt tag](quadrant_samples/0.png)
+![alt tag](quadrant_samples/1.png)
+![alt tag](quadrant_samples/2.png)
+![alt tag](quadrant_samples/3.png)
+![alt tag](quadrant_samples/4.png)
+![alt tag](quadrant_samples/5.png)
+![alt tag](quadrant_samples/6.png)
+![alt tag](quadrant_samples/7.png)
+![alt tag](quadrant_samples/8.png)
+![alt tag](quadrant_samples/9.png)
 
 | Variable          | Value     |
 | :---------------- | :---------|
