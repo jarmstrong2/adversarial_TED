@@ -207,7 +207,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 800
 		#lr = 0.005
-		lr = 0.001
+		lr = 0.0002
 		max_grad_norm = 5
 		iterations = 10**5
 		init_scale = 0.01
@@ -215,7 +215,7 @@ if __name__ == "__main__" :
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
 
-		with tf.variable_scope("model_full", reuse=None, initializer=initializer):
+		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_f = RNN_MNIST_model(configobj(), True, model_type="FULL")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_g = RNN_MNIST_model(configobj_g(), False, model_type="GEN")
