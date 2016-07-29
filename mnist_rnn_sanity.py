@@ -285,7 +285,7 @@ if __name__ == "__main__" :
 			else :
 				batch_x, batch_y = mnist.train.next_batch(configobj().batch_size/2)
 				batch_x = getinput(batch_x)
-				print(batch_x);
+
 				target_bin = np.zeros((configobj().batch_size/2, 2))
 				target_bin[:,0] = 1
 
@@ -299,7 +299,7 @@ if __name__ == "__main__" :
 				target_gen_bin[:,1] = 1
 
 				gen_x = session.run((mod_g.outputs), {mod_g.z:z, mod_g.target:target_gen, mod_g.target_bin:target_gen_bin})
-
+				print(gen_x);
 				# trying to shuffle fake and real data
 				x = np.concatenate((batch_x, gen_x), axis=0)
 				t = np.concatenate((batch_y, target_gen), axis=0)
