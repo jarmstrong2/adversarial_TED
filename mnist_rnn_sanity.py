@@ -207,7 +207,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		#lr = 0.005
-		lr = 0.001
+		lr = 0.0006
 		max_grad_norm = 10
 		iterations = (10**6)
 		init_scale = 0.001
