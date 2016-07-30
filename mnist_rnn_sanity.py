@@ -196,7 +196,7 @@ if __name__ == "__main__" :
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = (10**6)
-		init_scale = 0.001
+		init_scale = 0.01
 	
 	class configobj_f(object):
 		batch_size = 2**7
@@ -210,7 +210,7 @@ if __name__ == "__main__" :
 		lr = 0.0002
 		max_grad_norm = 10
 		iterations = (10**6)
-		init_scale = 0.001
+		init_scale = 0.01
 
 	class configobj_g(object):
 		batch_size = 2**6
