@@ -218,7 +218,7 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 4
 		lstm_layers_RNN_d = 4
-		hidden_size_RNN_g = 400
+		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		#lr = 0.005
 		lr = 0.0002
