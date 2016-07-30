@@ -268,7 +268,7 @@ if __name__ == "__main__" :
 				stepsingen_class = 0
 
 				plt.figure()
-				plt.plot(x_plot_class, y_plot_class, 'ro')
+				plt.plot(x_plot_class, y_plot_class, 'r-')
 				plt.savefig('classification.png')
 
 				x_plot_loss.append(i)
@@ -278,7 +278,7 @@ if __name__ == "__main__" :
 				stepsingen_loss = 0
 
 				plt.figure()
-				plt.plot(x_plot_loss, y_plot_loss, 'ro')
+				plt.plot(x_plot_loss, y_plot_loss, 'r-')
 				plt.savefig('loss.png')
 
 
