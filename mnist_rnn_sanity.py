@@ -188,12 +188,26 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 5
-		lstm_layers_RNN_d = 5
-		hidden_size_RNN_g = 800
-		hidden_size_RNN_d = 800
+		lstm_layers_RNN_g = 4
+		lstm_layers_RNN_d = 4
+		hidden_size_RNN_g = 400
+		hidden_size_RNN_d = 400
 		#lr = 0.005
 		lr = 0.0002
+		max_grad_norm = 10
+		iterations = (10**6)
+		init_scale = 0.001
+	
+	class configobj_f(object):
+		batch_size = 2**7
+		keep_prob = 0.5
+		z_size = 100
+		lstm_layers_RNN_g = 4
+		lstm_layers_RNN_d = 4
+		hidden_size_RNN_g = 400
+		hidden_size_RNN_d = 400
+		#lr = 0.005
+		lr = 0.001
 		max_grad_norm = 10
 		iterations = (10**6)
 		init_scale = 0.001
@@ -202,10 +216,10 @@ if __name__ == "__main__" :
 		batch_size = 2**6
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 5
-		lstm_layers_RNN_d = 5
-		hidden_size_RNN_g = 800
-		hidden_size_RNN_d = 800
+		lstm_layers_RNN_g = 4
+		lstm_layers_RNN_d = 4
+		hidden_size_RNN_g = 400
+		hidden_size_RNN_d = 400
 		#lr = 0.005
 		lr = 0.0002
 		max_grad_norm = 10
@@ -216,7 +230,7 @@ if __name__ == "__main__" :
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
 
 		with tf.variable_scope("model_full", reuse=None, initializer=initializer):
-			mod_f = RNN_MNIST_model(configobj(), True, model_type="FULL")
+			mod_f = RNN_MNIST_model(configobj_f(), True, model_type="FULL")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_g = RNN_MNIST_model(configobj_g(), False, model_type="GEN")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
