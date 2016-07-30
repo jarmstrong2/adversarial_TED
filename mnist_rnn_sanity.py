@@ -216,7 +216,7 @@ if __name__ == "__main__" :
 		batch_size = 2**6
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 4
+		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
