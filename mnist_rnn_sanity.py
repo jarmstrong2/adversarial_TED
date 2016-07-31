@@ -274,7 +274,7 @@ if __name__ == "__main__" :
 
 				plt.figure()
 				plt.plot(x_plot_class, y_plot_class, 'r-')
-				plt.savefig('classification.png')
+				plt.savefig('classification_clip.png')
 
 				x_plot_loss.append(i)
 				y_plot_loss.append(accumulator_loss/stepsingen_loss)
@@ -284,7 +284,7 @@ if __name__ == "__main__" :
 
 				plt.figure()
 				plt.plot(x_plot_loss, y_plot_loss, 'r-')
-				plt.savefig('loss.png')
+				plt.savefig('loss_clip.png')
 
 
 			# update the generator
@@ -339,7 +339,7 @@ if __name__ == "__main__" :
 				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
 
 			if ((i+1) % 100000 == 0):
-				save_path = saver.save(session, "model.ckpt")
+				save_path = saver.save(session, "model_clip.ckpt")
 				print("Model saved in file: %s" % save_path)
 
 
