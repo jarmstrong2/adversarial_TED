@@ -97,12 +97,11 @@ class RNN_MNIST_model(object):
 			
 			outputs_RNN_g = tf.exp(-outputs_RNN_g)
 
-			# output_max = tf.reduce_max(outputs_RNN_g, reduction_indices=2)
-			# output_max = tf.expand_dims(output_max, -1)
-			# output_max = tf.tile(output_max, [1,1,28*28])
+			output_max = tf.reduce_max(outputs_RNN_g, reduction_indices=2)
+			output_max = tf.expand_dims(output_max, -1)
+			output_max = tf.tile(output_max, [1,1,28*28])
 
-			# stabilizer = tf.ones(tf.shape(output_max), dtype=tf.float32) * 1e-6
-			# outputs_RNN_g = tf.div(outputs_RNN_g,output_max + stabilizer)
+			outputs_RNN_g = tf.div(outputs_RNN_g,output_max)
 
 			if model_type == "GEN":	
 				self.outputs = outputs_RNN_g
@@ -274,7 +273,7 @@ if __name__ == "__main__" :
 
 				plt.figure()
 				plt.plot(x_plot_class, y_plot_class, 'r-')
-				plt.savefig('classification_clip.png')
+				plt.savefig('classification.png')
 
 				x_plot_loss.append(i)
 				y_plot_loss.append(accumulator_loss/stepsingen_loss)
@@ -284,7 +283,7 @@ if __name__ == "__main__" :
 
 				plt.figure()
 				plt.plot(x_plot_loss, y_plot_loss, 'r-')
-				plt.savefig('loss_clip.png')
+				plt.savefig('loss.png')
 
 
 			# update the generator
@@ -339,7 +338,7 @@ if __name__ == "__main__" :
 				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
 
 			if ((i+1) % 100000 == 0):
-				save_path = saver.save(session, "model_clip.ckpt")
+				save_path = saver.save(session, "model.ckpt")
 				print("Model saved in file: %s" % save_path)
 
 
