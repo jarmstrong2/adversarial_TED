@@ -95,7 +95,7 @@ class RNN_MNIST_model(object):
 			outputs_RNN_g = tf.transpose(output, perm=[1,0,2])
 			outputs_RNN_g = tf.nn.relu(outputs_RNN_g)
 			
-			outputs_RNN_g = tf.exp(-outputs_RNN_g)
+			#outputs_RNN_g = tf.exp(-outputs_RNN_g)
 
 			output_max = tf.reduce_max(outputs_RNN_g, reduction_indices=2)
 			output_max = tf.expand_dims(output_max, -1)
