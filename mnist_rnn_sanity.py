@@ -195,7 +195,7 @@ if __name__ == "__main__" :
 		#lr = 0.005
 		lr = 0.0008
 		max_grad_norm = 10
-		iterations = (10**6)
+		iterations = 2*(10**6)
 		init_scale = 0.01
 	
 	class configobj_f(object):
