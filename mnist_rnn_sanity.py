@@ -242,7 +242,8 @@ if __name__ == "__main__" :
 
 		tf.initialize_all_variables().run()
 		saver = tf.train.Saver()
-		saver.restore(session, "model_old.ckpt")
+		saver.restore(session, "model_new.ckpt")
+
 		x_plot_class = []
 		y_plot_class = []
 		accumulator_class = 0
