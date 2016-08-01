@@ -25,11 +25,11 @@
 |![alt tag](samples/im0_sanity_9.png)|![alt tag](samples/im1_sanity_9.png)|![alt tag](samples/im2_sanity_9.png)|![alt tag](samples/im3_sanity_9.png)|![alt tag](samples/im4_sanity_9.png)|![alt tag](samples/im5_sanity_9.png)|![alt tag](samples/im6_sanity_9.png)|![alt tag](samples/im7_sanity_9.png)|![alt tag](samples/im8_sanity_9.png)|![alt tag](samples/im9_sanity_9.png)|
 |![alt tag](samples/im0_sanity_10.png)|![alt tag](samples/im1_sanity_10.png)|![alt tag](samples/im2_sanity_10.png)|![alt tag](samples/im3_sanity_10.png)|![alt tag](samples/im4_sanity_10.png)|![alt tag](samples/im5_sanity_10.png)|![alt tag](samples/im6_sanity_10.png)|![alt tag](samples/im7_sanity_10.png)|![alt tag](samples/im8_sanity_10.png)|![alt tag](samples/im9_sanity_10.png)|
 
-#### LOSS
+#### LOSS (Generator)
 
 ![alt tag](loss.png)
 
-#### CLASSIFICATION
+#### CLASSIFICATION (Generator)
 
 ![alt tag](classification.png)
 
