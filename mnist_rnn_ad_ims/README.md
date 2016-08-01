@@ -4,11 +4,11 @@
 | :---------------- | :---------|
 | timesteps         | 1         |
 | lstm_layers_RNN_g | 5        |
-| lstm_layers_RNN_d | 5         |
-| hidden_size_RNN_g | 800       |
-| hidden_size_RNN_d | 800       |
-| lr                | 2e-4    |
-| iterations        | 2e5       |
+| lstm_layers_RNN_d | 2         |
+| hidden_size_RNN_g | 600       |
+| hidden_size_RNN_d | 400       |
+| lr                | 1e-4    |
+| iterations        | 2e6       |
 
 #### INFERENCE
 
