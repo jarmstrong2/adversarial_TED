@@ -1,5 +1,9 @@
 import tensorflow as tf
 import numpy as np
+import matplotlib
+# Force matplotlib to not use any Xwindows backend.
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
@@ -44,10 +48,6 @@ class RNN_MNIST_model(object):
 			init_input = tf.concat(1, [init_image, self.target])
 
 			lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(hidden_size_RNN_g, forget_bias=0.0, state_is_tuple=True)
-			if is_training and config.keep_prob < 1:
-				lstm_cell = tf.nn.rnn_cell.DropoutWrapper(
-	    			lstm_cell, output_keep_prob=config.keep_prob
-	    		)
 			cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * config.lstm_layers_RNN_g, state_is_tuple=True)
 
 			# linear trans for [x_image_size * y_image_size + num_classes] -> hidden_size_RNN_g
@@ -65,8 +65,6 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(h_b)
 
 			output = []
-			if is_training:
-				init_input = tf.nn.dropout(init_input, config.keep_prob)
 			cell_input = tf.matmul(init_input, g_w) + g_b
 			self.state = state = collected_state
 
@@ -89,7 +87,13 @@ class RNN_MNIST_model(object):
 			self.trainables_variables += lstm_variables
 
 			outputs_RNN_g = tf.transpose(output, perm=[1,0,2])
-			outputs_RNN_g = outputs_RNN_g
+			outputs_RNN_g = tf.nn.relu(outputs_RNN_g)
+
+			output_max = tf.reduce_max(outputs_RNN_g, reduction_indices=2)
+			output_max = tf.expand_dims(output_max, -1)
+			output_max = tf.tile(output_max, [1,1,14*14])
+
+			outputs_RNN_g = tf.div(outputs_RNN_g, output_max)
 
 			if model_type == "GEN":	
 				self.outputs = outputs_RNN_g
@@ -158,16 +162,6 @@ class RNN_MNIST_model(object):
 			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
 			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-			# final_prob = tf.sigmoid(final_trans)
-
-			# self.outputs = final_prob
-			# final_prob = tf.tile(final_prob,[1,2])
-			# cost_theta = tf.concat(1, [tf.zeros([batch_size, 1]), tf.ones([batch_size, 1])])
-			# self.cost = tf.abs(cost_theta - final_prob)
-			# self.cost = tf.pow(self.cost, self.target_bin)
-			# self.cost = -tf.log(self.cost)
-			# self.cost = tf.reduce_sum(self.cost, 1)
-
 			self.lr = config.lr
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
@@ -200,29 +194,40 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 3
+		lstm_layers_RNN_g = 5
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		#lr = 0.005
-		lr = 0.0002
+		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 5*(10**5)
 		init_scale = 0.01
 
-	class configobj_d(object):
-		batch_size = 2**8
+	class configobj_f(object):
+		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 3
+		lstm_layers_RNN_g = 5
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		#lr = 0.005
-		lr = 0.001
+		lr = 0.0002
+		max_grad_norm = 10
+		iterations = (10**6)
+		init_scale = 0.01
+
+	class configobj_g(object):
+		batch_size = 2**6
+		keep_prob = 0.005
+		z_size = 100
+		lstm_layers_RNN_g = 5
+		lstm_layers_RNN_d = 2
+		hidden_size_RNN_g = 600
+		hidden_size_RNN_d = 400
+		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**5
-		init_scale = 0.001
+		init_scale = 0.01
 
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
@@ -230,15 +235,35 @@ if __name__ == "__main__" :
 		with tf.variable_scope("model_full", reuse=None, initializer=initializer):
 			mod_f = RNN_MNIST_model(configobj(), True, model_type="FULL")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
-			mod_g = RNN_MNIST_model(configobj(), False, model_type="GEN")
+			mod_g = RNN_MNIST_model(configobj_g(), False, model_type="GEN")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_d = RNN_MNIST_model(configobj_d(), True, model_type="DISC")
 
 		tf.initialize_all_variables().run()
 		saver = tf.train.Saver()
 
+		x_plot_class_g = []
+		y_plot_class_g = []
+		accumulator_class_g = 0
+		stepsingen_class_g = 0
+
+		x_plot_loss_g = []
+		y_plot_loss_g = []
+		accumulator_loss_g = 0
+		stepsingen_loss_g = 0
+
+		x_plot_class_d = []
+		y_plot_class_d = []
+		accumulator_class_d = 0
+		stepsingen_class_d = 0
+
+		x_plot_loss_d = []
+		y_plot_loss_d = []
+		accumulator_loss_d = 0
+		stepsingen_loss_d = 0
+
 		for i in range(configobj().iterations):
-			if ((i+1) % 100 == 0):
+			if ((i+1) % 1000 == 0):
 				print("------------")
 				print("Step: {}".format(i+1))
 				
@@ -250,9 +275,47 @@ if __name__ == "__main__" :
 				#print((cost + cost_gen) / 2)
 				print("Loss: {}, Accuracy: {}".format(cost, acc))
 
+				x_plot_class_g.append(i)
+				y_plot_class_g.append(accumulator_class_g/stepsingen_class_g)
+
+				accumulator_class_g = 0
+				stepsingen_class_g = 0
+
+				x_plot_class_d.append(i)
+				y_plot_class_d.append(accumulator_class_d/stepsingen_class_d)
+
+				accumulator_class_d = 0
+				stepsingen_class_d = 0
+
+				plt.figure()
+				class_plt_g, = plt.plot(x_plot_class_g, y_plot_class_g, 'r-')
+				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
+				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
+				plt.title('Classification')
+				plt.savefig('classification.png')
+
+				x_plot_loss_g.append(i)
+				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
+
+				accumulator_loss_g = 0
+				stepsingen_loss_g = 0
+
+				x_plot_loss_d.append(i)
+				y_plot_loss_d.append(accumulator_loss_d/stepsingen_loss_d)
+
+				accumulator_loss_d = 0
+				stepsingen_loss_d = 0
+
+				plt.figure()
+				loss_plt_g, = plt.plot(x_plot_loss_g, y_plot_loss_g, 'r-')
+				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
+				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
+				plt.title('Loss')
+				plt.savefig('loss.png')
+
 			# update the generator
 			if ((i+1) % 3 == 0):
-				z = np.random.uniform(-0.05,0.05,(configobj().batch_size,configobj().z_size))
+				z = np.random.uniform(-1,1,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
 				target_gen = np.zeros((configobj().batch_size, 10))
@@ -262,21 +325,28 @@ if __name__ == "__main__" :
 				target_gen_bin[:,0] = 1
 
 				_, cost_gen_g, acc_gen_g = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
-				
+
+				accumulator_class_g += acc_gen_g
+				stepsingen_class_g += 1
+
+				accumulator_loss_g += cost_gen_g
+				stepsingen_loss_g += 1
+
 			# update the discriminator
 			else :
-				batch_x, batch_y = mnist.train.next_batch(configobj().batch_size)
+				batch_x, batch_y = mnist.train.next_batch(configobj().batch_size/2)
 				batch_x = getinput(batch_x)
-				target_bin = np.zeros((configobj().batch_size, 2))
+
+				target_bin = np.zeros((configobj().batch_size/2, 2))
 				target_bin[:,0] = 1
 
-				z = np.random.uniform(-0.05,0.05,(configobj().batch_size,configobj().z_size))
+				z = np.random.uniform(-1,1,(configobj().batch_size/2,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
-				target_gen = np.zeros((configobj().batch_size, 10))
+				target_gen = np.zeros((configobj().batch_size/2, 10))
 				ind = [np.random.choice(10) for row in target_gen]
 				target_gen[range(target_gen.shape[0]), ind] = 1
-				target_gen_bin = np.zeros((configobj().batch_size, 2))
+				target_gen_bin = np.zeros((configobj().batch_size/2, 2))
 				target_gen_bin[:,1] = 1
 
 				gen_x = session.run((mod_g.outputs), {mod_g.z:z, mod_g.target:target_gen, mod_g.target_bin:target_gen_bin})
@@ -296,7 +366,13 @@ if __name__ == "__main__" :
 
 				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
 
-		save_path = saver.save(session, "model.ckpt")
+				accumulator_class_d += acc
+				stepsingen_class_d += 1
+
+				accumulator_loss_d += cost
+				stepsingen_loss_d += 1
+
+		save_path = saver.save(session, "model_quad.ckpt")
 		print("Model saved in file: %s" % save_path)
 
 
