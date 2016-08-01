@@ -77,8 +77,6 @@ class RNN_MNIST_model(object):
 					cell_output = tf.matmul(cell_output, h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
-					if is_training:
-						new_input = tf.nn.dropout(new_input, config.keep_prob)
 					cell_input = tf.matmul(new_input, g_w) + g_b
 
 				lstm_variables = [v for v in tf.all_variables()
