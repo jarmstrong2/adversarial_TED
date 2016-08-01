@@ -172,18 +172,18 @@ class RNN_MNIST_model(object):
 
 def getinput(batch_x):
 	# spliting the image into its quadrants, then flattening, then concatenating
-	full_im = np.reshape(batch_x,(configobj().batch_size, 28,28))
+	full_im = np.reshape(batch_x,(configobj().batch_size/2, 28,28))
 	split_ul = full_im[:,0:14,0:14]
-	split_ul = np.reshape(split_ul, (configobj().batch_size, 14*14))
+	split_ul = np.reshape(split_ul, (configobj().batch_size/2, 14*14))
 	split_ul = np.expand_dims(split_ul, axis=1)
 	split_ur = full_im[:,0:14,14:28]
-	split_ur = np.reshape(split_ur, (configobj().batch_size, 14*14))
+	split_ur = np.reshape(split_ur, (configobj().batch_size/2, 14*14))
 	split_ur = np.expand_dims(split_ur, axis=1)
 	split_ll = full_im[:,14:28,0:14]
-	split_ll = np.reshape(split_ll, (configobj().batch_size, 14*14))
+	split_ll = np.reshape(split_ll, (configobj().batch_size/2, 14*14))
 	split_ll = np.expand_dims(split_ll, axis=1)
 	split_lr = full_im[:,14:28,14:28]
-	split_lr = np.reshape(split_lr, (configobj().batch_size, 14*14))
+	split_lr = np.reshape(split_lr, (configobj().batch_size/2, 14*14))
 	split_lr = np.expand_dims(split_lr, axis=1)
 	input_x = np.concatenate((split_ul, split_ur, split_ll, split_lr), axis=1)
 	return input_x
