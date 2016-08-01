@@ -200,7 +200,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_d = 400
 		lr = 0.0001
 		max_grad_norm = 10
-		iterations = 5*(10**5)
+		iterations = 10**7
 		init_scale = 0.01
 
 	class configobj_f(object):
