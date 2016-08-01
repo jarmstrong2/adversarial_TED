@@ -372,8 +372,9 @@ if __name__ == "__main__" :
 				accumulator_loss_d += cost
 				stepsingen_loss_d += 1
 
-		save_path = saver.save(session, "model_quad.ckpt")
-		print("Model saved in file: %s" % save_path)
+			if ((i+1) % 100000 == 0):
+				save_path = saver.save(session, "model.ckpt")
+				print("Model saved in file: %s" % save_path)
 
 
 
