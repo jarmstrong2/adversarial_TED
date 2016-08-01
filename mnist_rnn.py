@@ -91,7 +91,9 @@ class RNN_MNIST_model(object):
 			output_max = tf.expand_dims(output_max, -1)
 			output_max = tf.tile(output_max, [1,1,14*14])
 
-			outputs_RNN_g = tf.div(outputs_RNN_g, output_max)
+			stabalizer = tf.ones(tf.shape(output_max)) * 1e-7
+
+			outputs_RNN_g = tf.div(outputs_RNN_g, output_max + stabalizer)
 
 			if model_type == "GEN":	
 				self.outputs = outputs_RNN_g
