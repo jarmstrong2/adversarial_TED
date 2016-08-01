@@ -233,11 +233,11 @@ if __name__ == "__main__" :
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
 
 		with tf.variable_scope("model_full", reuse=None, initializer=initializer):
-			mod_f = RNN_MNIST_model(configobj(), True, model_type="FULL")
+			mod_f = RNN_MNIST_model(configobj_f(), True, model_type="FULL")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_g = RNN_MNIST_model(configobj_g(), False, model_type="GEN")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
-			mod_d = RNN_MNIST_model(configobj_d(), True, model_type="DISC")
+			mod_d = RNN_MNIST_model(configobj(), True, model_type="DISC")
 
 		tf.initialize_all_variables().run()
 		saver = tf.train.Saver()
