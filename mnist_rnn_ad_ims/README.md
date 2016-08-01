@@ -9,6 +9,7 @@
 | hidden_size_RNN_d | 400       |
 | lr                | 1e-4    |
 | iterations        | 2e6       |
+| classification (discriminator)        | 0.609      |
 
 #### INFERENCE
 
