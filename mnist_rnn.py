@@ -161,7 +161,7 @@ class RNN_MNIST_model(object):
 
 			# weight decay
 			l2_loss = tf.add_n([tf.nn.l2_loss(v) for v in self.trainables_variables])
-			lambda_coeff = 0.0005
+			lambda_coeff = 0.00001
 
 			self.cost = self.cost + lambda_coeff * l2_loss
 
