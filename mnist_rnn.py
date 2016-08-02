@@ -159,6 +159,12 @@ class RNN_MNIST_model(object):
 			
 			self.cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(final_trans, self.target_bin))
 
+			# weight decay
+			l2_loss = tf.add_n([tf.nn.l2_loss(v) for v in self.trainable_variables()])
+			lambda_coeff = 0.5
+
+			self.cost = self.cost + lambda_coeff * l2_loss
+
 			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
 			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
