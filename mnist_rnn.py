@@ -65,7 +65,7 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(h_b)
 
 			output = []
-			cell_input = tf.matmul(tf.relu(init_input), g_w) + g_b
+			cell_input = tf.matmul(tf.nn.relu(init_input), g_w) + g_b
 			self.state = state = collected_state
 
 			lstm_variables = []
@@ -74,10 +74,10 @@ class RNN_MNIST_model(object):
 				for time_step in range(4):
 					if time_step > 0: tf.get_variable_scope().reuse_variables()
 					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
-					cell_output = tf.matmul(cell_output, h_w) + h_b
+					cell_output = tf.matmul(tf.nn.relu(cell_output), h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
-					cell_input = tf.matmul(new_input, g_w) + g_b
+					cell_input = tf.matmul(tf.nn.relu(new_input), g_w) + g_b
 
 				lstm_variables = [v for v in tf.all_variables()
                     if v.name.startswith(vs.name)]
