@@ -199,7 +199,7 @@ def getinput(batch_x):
 if __name__ == "__main__" :
 	class configobj(object):
 		batch_size = 2**6
-		keep_prob = 0.35
+		keep_prob = 0.40
 		z_size = 100
 		lstm_layers_RNN_g = 4
 		lstm_layers_RNN_d = 2
@@ -212,7 +212,7 @@ if __name__ == "__main__" :
 
 	class configobj_f(object):
 		batch_size = 2**6
-		keep_prob = 0.35
+		keep_prob = 0.40
 		z_size = 100
 		lstm_layers_RNN_g = 4
 		lstm_layers_RNN_d = 2
@@ -225,7 +225,7 @@ if __name__ == "__main__" :
 
 	class configobj_g(object):
 		batch_size = 2**5
-		keep_prob = 0.35
+		keep_prob = 0.40
 		z_size = 100
 		lstm_layers_RNN_g = 4
 		lstm_layers_RNN_d = 2
@@ -270,7 +270,7 @@ if __name__ == "__main__" :
 		stepsingen_loss_d = 0
 
 		for i in range(configobj().iterations):
-			if ((i+1) % 1000 == 0):
+			if ((i+1) % 100 == 0):
 				print("------------")
 				print("Step: {}".format(i+1))
 				
