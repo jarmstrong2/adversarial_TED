@@ -321,7 +321,7 @@ if __name__ == "__main__" :
 				plt.savefig('loss_6.png')
 
 			# update the generator
-			if ((i+1) % 3 == 0):
+			if ((i+1) % 2 == 0):
 				z = np.random.uniform(-1,1,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
