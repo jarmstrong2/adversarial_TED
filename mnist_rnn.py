@@ -38,7 +38,7 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(f_w)
 			self.trainables_variables.append(f_b)
 
-			init_state = tf.matmul(self.z, f_w) + f_b
+			init_state = tf.matmul(tf.nn.relu(self.z), f_w) + f_b
 			collected_state = ((init_state, init_state),)
 			for layer in range(config.lstm_layers_RNN_g - 1):
 				collected_state += ((init_state, init_state),)
@@ -270,7 +270,7 @@ if __name__ == "__main__" :
 		stepsingen_loss_d = 0
 
 		for i in range(configobj().iterations):
-			if ((i+1) % 1000 == 0):
+			if ((i+1) % 10 == 0):
 				print("------------")
 				print("Step: {}".format(i+1))
 				
