@@ -65,7 +65,7 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(h_b)
 
 			output = []
-			cell_input = tf.matmul(init_input, g_w) + g_b
+			cell_input = tf.matmul(tf.relu(init_input), g_w) + g_b
 			self.state = state = collected_state
 
 			lstm_variables = []
