@@ -199,7 +199,7 @@ def getinput(batch_x):
 if __name__ == "__main__" :
 	class configobj(object):
 		batch_size = 2**6
-		keep_prob = 0.40
+		keep_prob = 0.3
 		z_size = 100
 		lstm_layers_RNN_g = 4
 		lstm_layers_RNN_d = 2
@@ -212,7 +212,7 @@ if __name__ == "__main__" :
 
 	class configobj_f(object):
 		batch_size = 2**6
-		keep_prob = 0.40
+		keep_prob = 0.3
 		z_size = 100
 		lstm_layers_RNN_g = 4
 		lstm_layers_RNN_d = 2
@@ -225,7 +225,7 @@ if __name__ == "__main__" :
 
 	class configobj_g(object):
 		batch_size = 2**5
-		keep_prob = 0.40
+		keep_prob = 0.3
 		z_size = 100
 		lstm_layers_RNN_g = 4
 		lstm_layers_RNN_d = 2
@@ -321,7 +321,7 @@ if __name__ == "__main__" :
 				plt.savefig('loss_5.png')
 
 			# update the generator
-			if ((i+1) % 2 == 0):
+			if ((i+1) % 3 == 0):
 				z = np.random.uniform(-1,1,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
