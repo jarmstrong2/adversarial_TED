@@ -38,7 +38,7 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(f_w)
 			self.trainables_variables.append(f_b)
 
-			init_state = tf.matmul(tf.nn.relu(self.z), f_w) + f_b
+			init_state = tf.matmul(self.z, f_w) + f_b
 			collected_state = ((init_state, init_state),)
 			for layer in range(config.lstm_layers_RNN_g - 1):
 				collected_state += ((init_state, init_state),)
@@ -65,7 +65,7 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(h_b)
 
 			output = []
-			cell_input = tf.matmul(tf.nn.relu(init_input), g_w) + g_b
+			cell_input = tf.matmul(init_input, g_w) + g_b
 			self.state = state = collected_state
 
 			lstm_variables = []
@@ -77,7 +77,7 @@ class RNN_MNIST_model(object):
 					cell_output = tf.matmul(cell_output, h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
-					cell_input = tf.matmul(tf.nn.relu(new_input), g_w) + g_b
+					cell_input = tf.matmul(new_input, g_w) + g_b
 
 				lstm_variables = [v for v in tf.all_variables()
                     if v.name.startswith(vs.name)]
@@ -123,9 +123,6 @@ class RNN_MNIST_model(object):
 				self.trainables_variables.append(i_w)
 				self.trainables_variables.append(i_b)
 
-			if is_training and config.keep_prob < 1:
-				self.target = tf.nn.dropout(self.target, config.keep_prob)
-
 			init_state_input = tf.matmul(self.target, i_w) + i_b
 
 			init_state = ((init_state_input,init_state_input),)
@@ -158,8 +155,6 @@ class RNN_MNIST_model(object):
 
 			final_output = tf.slice(output, [0,3,0], [batch_size, 1, hidden_size_RNN_d])
 			final_output = tf.squeeze(final_output, [1])
-			if is_training and config.keep_prob < 1:
-				final_output = tf.nn.dropout(final_output, config.keep_prob)
 			final_trans = tf.matmul(final_output, j_w) + j_b
 			
 			self.cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(final_trans, self.target_bin))
