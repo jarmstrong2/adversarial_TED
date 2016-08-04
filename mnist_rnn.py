@@ -38,7 +38,7 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(f_w)
 			self.trainables_variables.append(f_b)
 
-			init_state = tf.matmul(tf.nn.relu(self.z), f_w) + f_b
+			init_state = tf.matmul(self.z, f_w) + f_b
 			collected_state = ((init_state, init_state),)
 			for layer in range(config.lstm_layers_RNN_g - 1):
 				collected_state += ((init_state, init_state),)
@@ -65,7 +65,7 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(h_b)
 
 			output = []
-			cell_input = tf.matmul(tf.nn.relu(init_input), g_w) + g_b
+			cell_input = tf.matmul(init_input, g_w) + g_b
 			self.state = state = collected_state
 
 			lstm_variables = []
@@ -74,10 +74,10 @@ class RNN_MNIST_model(object):
 				for time_step in range(4):
 					if time_step > 0: tf.get_variable_scope().reuse_variables()
 					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
-					cell_output = tf.matmul(tf.nn.relu(cell_output), h_w) + h_b
+					cell_output = tf.matmul(cell_output, h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
-					cell_input = tf.matmul(tf.nn.relu(new_input), g_w) + g_b
+					cell_input = tf.matmul(new_input, g_w) + g_b
 
 				lstm_variables = [v for v in tf.all_variables()
                     if v.name.startswith(vs.name)]
@@ -270,7 +270,7 @@ if __name__ == "__main__" :
 		stepsingen_loss_d = 0
 
 		for i in range(configobj().iterations):
-			if ((i+1) % 10 == 0):
+			if ((i+1) % 1000 == 0):
 				print("------------")
 				print("Step: {}".format(i+1))
 				
