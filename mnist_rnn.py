@@ -161,10 +161,9 @@ class RNN_MNIST_model(object):
 
 			# weight decay
 			l2_loss = tf.add_n([tf.nn.l2_loss(v) for v in self.trainables_variables])
-			lambda_coeff = 0.001
+			lambda_coeff = 0.00001
 
-			# if model_type == "DISC":
-			# 	self.cost = self.cost + lambda_coeff * l2_loss
+			self.cost = self.cost + lambda_coeff * l2_loss
 
 			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
 			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
@@ -198,42 +197,42 @@ def getinput(batch_x):
 
 if __name__ == "__main__" :
 	class configobj(object):
-		batch_size = 2**6
-		keep_prob = 0.3
+		batch_size = 2**7
+		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 2
+		lstm_layers_RNN_g = 8
+		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.0004
+		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
 		init_scale = 0.01
 
 	class configobj_f(object):
-		batch_size = 2**6
-		keep_prob = 0.3
+		batch_size = 2**7
+		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 2
+		lstm_layers_RNN_g = 8
+		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.0006
+		lr = 0.0002
 		max_grad_norm = 10
-		iterations = (10**6)
+		iterations = (10**7)
 		init_scale = 0.01
 
 	class configobj_g(object):
-		batch_size = 2**5
-		keep_prob = 0.3
+		batch_size = 2**6
+		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 10
-		lstm_layers_RNN_d = 2
+		lstm_layers_RNN_g = 8
+		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.0004
+		lr = 0.0001
 		max_grad_norm = 10
-		iterations = 10**5
+		iterations = 10**7
 		init_scale = 0.01
 
 	with tf.Graph().as_default(), tf.Session() as session:
@@ -299,7 +298,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_6.png')
+				plt.savefig('classification_7.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -318,10 +317,10 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_6.png')
+				plt.savefig('loss_7.png')
 
 			# update the generator
-			if ((i+1) % 2 == 0):
+			if ((i+1) % 3 == 0):
 				z = np.random.uniform(-1,1,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
@@ -380,12 +379,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if ((i+1) % 100000 == 0):
-				save_path = saver.save(session, "model_quad_6.ckpt")
+				save_path = saver.save(session, "model_quad_7.ckpt")
 				print("Model saved in file: %s" % save_path)
-
-
-
-
-
-
-
