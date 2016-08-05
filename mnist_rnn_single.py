@@ -177,7 +177,7 @@ class RNN_MNIST_model(object):
 		# ------------------------------------
 
 def getsinglesbatch(batchsize, digit):
-	batch_y = np.zeros((batchsize), 10)
+	batch_y = np.zeros((batchsize, 10))
 	batch_y[:, digit] = 1
 
 	batch_x = None
