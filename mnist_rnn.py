@@ -200,8 +200,8 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 8
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_g = 6
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0001
@@ -213,26 +213,26 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 8
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_g = 6
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0002
 		max_grad_norm = 10
-		iterations = (10**7)
+		iterations = (10**6)
 		init_scale = 0.01
 
 	class configobj_g(object):
 		batch_size = 2**6
-		keep_prob = 0.5
+		keep_prob = 0.005
 		z_size = 100
-		lstm_layers_RNN_g = 8
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_g = 6
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0001
 		max_grad_norm = 10
-		iterations = 10**7
+		iterations = 10**5
 		init_scale = 0.01
 
 	with tf.Graph().as_default(), tf.Session() as session:
@@ -298,7 +298,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_7.png')
+				plt.savefig('classification_3.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -317,7 +317,7 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_7.png')
+				plt.savefig('loss_3.png')
 
 			# update the generator
 			if ((i+1) % 3 == 0):
@@ -379,5 +379,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if ((i+1) % 100000 == 0):
-				save_path = saver.save(session, "model_quad_7.ckpt")
+				save_path = saver.save(session, "model_quad_3.ckpt")
 				print("Model saved in file: %s" % save_path)
