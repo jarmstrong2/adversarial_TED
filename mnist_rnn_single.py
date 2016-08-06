@@ -215,39 +215,39 @@ if __name__ == "__main__" :
 	digit = 2;
 
 	class configobj(object):
-		batch_size = 2**7
+		batch_size = 2**5
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 4
+		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 300
+		hidden_size_RNN_d = 200
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
 		init_scale = 0.01
 
 	class configobj_f(object):
-		batch_size = 2**7
+		batch_size = 2**5
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 4
+		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 300
+		hidden_size_RNN_d = 200
 		lr = 0.0002
 		max_grad_norm = 10
 		iterations = (10**7)
 		init_scale = 0.01
 
 	class configobj_g(object):
-		batch_size = 2**6
+		batch_size = 2**4
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 4
+		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 300
+		hidden_size_RNN_d = 200
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
