@@ -221,7 +221,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_g = 5
 		lstm_layers_RNN_d = 1
 		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 300
+		hidden_size_RNN_d = 200
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
@@ -234,7 +234,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_g = 5
 		lstm_layers_RNN_d = 1
 		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 300
+		hidden_size_RNN_d = 200
 		lr = 0.0002
 		max_grad_norm = 10
 		iterations = (10**7)
@@ -247,7 +247,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_g = 5
 		lstm_layers_RNN_d = 1
 		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 300
+		hidden_size_RNN_d = 200
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
@@ -338,7 +338,7 @@ if __name__ == "__main__" :
 				plt.savefig('loss_single.png')
 
 			# update the generator
-			if ((i+1) % 3 == 0):
+			if ((i+1) % 2 == 0):
 				z = np.random.uniform(-1,1,(configobj().batch_size,configobj().z_size))
 
 				# randomly generating one-hot vect to describe gen number image segments
