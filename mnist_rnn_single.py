@@ -216,7 +216,7 @@ if __name__ == "__main__" :
 
 	class configobj(object):
 		batch_size = 2**5
-		keep_prob = 0.5
+		keep_prob = 0.35
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
@@ -229,7 +229,7 @@ if __name__ == "__main__" :
 
 	class configobj_f(object):
 		batch_size = 2**5
-		keep_prob = 0.5
+		keep_prob = 0.35
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
@@ -242,7 +242,7 @@ if __name__ == "__main__" :
 
 	class configobj_g(object):
 		batch_size = 2**4
-		keep_prob = 0.5
+		keep_prob = 0.35
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
