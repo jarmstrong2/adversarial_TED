@@ -25,11 +25,7 @@
 |![alt tag](full_mod_aug_8/im8_1.png)|![alt tag](full_mod_aug_8/im8_2.png)|![alt tag](full_mod_aug_8/im8_3.png)|![alt tag](full_mod_aug_8/im8_4.png)|![alt tag](full_mod_aug_8/im8_5.png)|![alt tag](full_mod_aug_8/im8_6.png)|![alt tag](full_mod_aug_8/im8_7.png)|![alt tag](full_mod_aug_8/im8_8.png)|![alt tag](full_mod_aug_8/im8_9.png)|![alt tag](full_mod_aug_8/im8_10.png)|
 |![alt tag](full_mod_aug_8/im9_1.png)|![alt tag](full_mod_aug_8/im9_2.png)|![alt tag](full_mod_aug_8/im9_3.png)|![alt tag](full_mod_aug_8/im9_4.png)|![alt tag](full_mod_aug_8/im9_5.png)|![alt tag](full_mod_aug_8/im9_6.png)|![alt tag](full_mod_aug_8/im9_7.png)|![alt tag](full_mod_aug_8/im9_8.png)|![alt tag](full_mod_aug_8/im9_9.png)|![alt tag](full_mod_aug_8/im9_10.png)|
 
-#### LOSS
-
 ![alt tag](loss_full_aug_8.png)
-
-#### CLASSIFICATION
 
 ![alt tag](classification_full_aug_8.png)
 
