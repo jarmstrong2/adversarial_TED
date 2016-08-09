@@ -65,11 +65,18 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(h_b)
 
 			# linear trans for hidden_size_RNN_g*2 -> [x_image_size/2 * y_image_size/2]
-			k_w = tf.get_variable("RNN_g_linear_target_w", [hidden_size_RNN_g*2, (14*14)])
-			k_b = tf.get_variable("RNN_g_linear_target_b", [(14*14)])
+			k_w = tf.get_variable("RNN_g_linear_linear_w", [hidden_size_RNN_g*2, hidden_size_RNN_g])
+			k_b = tf.get_variable("RNN_g_linear_linear_b", [hidden_size_RNN_g])
 
 			self.trainables_variables.append(k_w)
 			self.trainables_variables.append(k_b)
+
+			# linear trans for hidden_size_RNN_g*2 -> [x_image_size/2 * y_image_size/2]
+			l_w = tf.get_variable("RNN_g_linear_target_w", [hidden_size_RNN_g, (14*14)])
+			l_b = tf.get_variable("RNN_g_linear_target_b", [(14*14)])
+
+			self.trainables_variables.append(l_w)
+			self.trainables_variables.append(l_b)
 
 			output = []
 			cell_input = tf.matmul(init_input, g_w) + g_b
@@ -83,6 +90,7 @@ class RNN_MNIST_model(object):
 					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
 					cell_output = tf.matmul(cell_output, h_w) + h_b
 					cell_output = tf.matmul(cell_output, k_w) + k_b
+					cell_output = tf.matmul(cell_output, l_w) + l_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
 					cell_input = tf.matmul(new_input, g_w) + g_b
