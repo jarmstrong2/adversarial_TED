@@ -332,7 +332,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_single_3.png')
+				plt.savefig('classification_single_4.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -351,7 +351,7 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_single_3.png')
+				plt.savefig('loss_single_4.png')
 
 			# update the generator
 			if ((i+1) % 3 == 0):
@@ -409,5 +409,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if ((i+1) % 100000 == 0):
-				save_path = saver.save(session, "model_single_3.ckpt")
+				save_path = saver.save(session, "model_single_4.ckpt")
 				print("Model saved in file: %s" % save_path)
