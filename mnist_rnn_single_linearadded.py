@@ -57,14 +57,14 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(g_w)
 			self.trainables_variables.append(g_b)
 
-			# linear trans for hidden_size_RNN_g -> [x_image_size * y_image_size]
+			# linear trans for hidden_size_RNN_g -> hidden_size_RNN_g*2
 			h_w = tf.get_variable("RNN_g_output_linear_w", [hidden_size_RNN_g, hidden_size_RNN_g*2])
 			h_b = tf.get_variable("RNN_g_output_linear_b", [hidden_size_RNN_g*2])
 
 			self.trainables_variables.append(h_w)
 			self.trainables_variables.append(h_b)
 
-			# linear trans for hidden_size_RNN_g -> [x_image_size * y_image_size]
+			# linear trans for hidden_size_RNN_g*2 -> [x_image_size/2 * y_image_size/2]
 			k_w = tf.get_variable("RNN_g_linear_target_w", [hidden_size_RNN_g*2, (14*14)])
 			k_b = tf.get_variable("RNN_g_linear_target_b", [(14*14)])
 
