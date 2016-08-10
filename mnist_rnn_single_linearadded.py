@@ -65,18 +65,11 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(h_b)
 
 			# linear trans for hidden_size_RNN_g*2 -> [x_image_size/2 * y_image_size/2]
-			k_w = tf.get_variable("RNN_g_linear_linear_w", [hidden_size_RNN_g*2, hidden_size_RNN_g])
-			k_b = tf.get_variable("RNN_g_linear_linear_b", [hidden_size_RNN_g])
+			k_w = tf.get_variable("RNN_g_linear_target_w", [hidden_size_RNN_g*2, (14*14)])
+			k_b = tf.get_variable("RNN_g_linear_target_b", [(14*14)])
 
 			self.trainables_variables.append(k_w)
 			self.trainables_variables.append(k_b)
-
-			# linear trans for hidden_size_RNN_g*2 -> [x_image_size/2 * y_image_size/2]
-			l_w = tf.get_variable("RNN_g_linear_target_w", [hidden_size_RNN_g, (14*14)])
-			l_b = tf.get_variable("RNN_g_linear_target_b", [(14*14)])
-
-			self.trainables_variables.append(l_w)
-			self.trainables_variables.append(l_b)
 
 			output = []
 			cell_input = tf.matmul(init_input, g_w) + g_b
@@ -90,7 +83,6 @@ class RNN_MNIST_model(object):
 					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
 					cell_output = tf.matmul(cell_output, h_w) + h_b
 					cell_output = tf.matmul(cell_output, k_w) + k_b
-					cell_output = tf.matmul(cell_output, l_w) + l_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
 					cell_input = tf.matmul(new_input, g_w) + g_b
@@ -231,32 +223,6 @@ if __name__ == "__main__" :
 	digit = 2;
 
 	class configobj(object):
-		batch_size = 2**6
-		keep_prob = 0.5
-		z_size = 100
-		lstm_layers_RNN_g = 6
-		lstm_layers_RNN_d = 2
-		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 400
-		lr = 0.0001
-		max_grad_norm = 10
-		iterations = 10**7
-		init_scale = 0.0008
-
-	class configobj_f(object):
-		batch_size = 2**6
-		keep_prob = 0.5
-		z_size = 100
-		lstm_layers_RNN_g = 6
-		lstm_layers_RNN_d = 2
-		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 400
-		lr = 0.0002
-		max_grad_norm = 10
-		iterations = (10**7)
-		init_scale = 0.0008
-
-	class configobj_g(object):
 		batch_size = 2**5
 		keep_prob = 0.5
 		z_size = 100
@@ -267,7 +233,33 @@ if __name__ == "__main__" :
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
-		init_scale = 0.0008
+		init_scale = 0.0001
+
+	class configobj_f(object):
+		batch_size = 2**5
+		keep_prob = 0.5
+		z_size = 100
+		lstm_layers_RNN_g = 6
+		lstm_layers_RNN_d = 2
+		hidden_size_RNN_g = 600
+		hidden_size_RNN_d = 400
+		lr = 0.0002
+		max_grad_norm = 10
+		iterations = (10**7)
+		init_scale = 0.0001
+
+	class configobj_g(object):
+		batch_size = 2**4
+		keep_prob = 0.5
+		z_size = 100
+		lstm_layers_RNN_g = 6
+		lstm_layers_RNN_d = 2
+		hidden_size_RNN_g = 600
+		hidden_size_RNN_d = 400
+		lr = 0.0001
+		max_grad_norm = 10
+		iterations = 10**7
+		init_scale = 0.0001
 
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
@@ -303,7 +295,7 @@ if __name__ == "__main__" :
 		stepsingen_loss_d = 0
 
 		for i in range(configobj().iterations):
-			if ((i+1) % 100 == 0):
+			if ((i+1) % 1000 == 0):
 				print("------------")
 				print("Step: {}".format(i+1))
 				
