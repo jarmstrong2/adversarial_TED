@@ -57,15 +57,15 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(g_w)
 			self.trainables_variables.append(g_b)
 
-			# linear trans for hidden_size_RNN_g -> hidden_size_RNN_g*2
-			h_w = tf.get_variable("RNN_g_output_linear_w", [hidden_size_RNN_g, hidden_size_RNN_g*2])
-			h_b = tf.get_variable("RNN_g_output_linear_b", [hidden_size_RNN_g*2])
+			# linear trans for hidden_size_RNN_g -> hidden_size_RNN_g*3
+			h_w = tf.get_variable("RNN_g_output_linear_w", [hidden_size_RNN_g, hidden_size_RNN_g*3])
+			h_b = tf.get_variable("RNN_g_output_linear_b", [hidden_size_RNN_g*3])
 
 			self.trainables_variables.append(h_w)
 			self.trainables_variables.append(h_b)
 
-			# linear trans for hidden_size_RNN_g*2 -> [x_image_size/2 * y_image_size/2]
-			k_w = tf.get_variable("RNN_g_linear_target_w", [hidden_size_RNN_g*2, (14*14)])
+			# linear trans for hidden_size_RNN_g*3 -> [x_image_size/2 * y_image_size/2]
+			k_w = tf.get_variable("RNN_g_linear_target_w", [hidden_size_RNN_g*3, (14*14)])
 			k_b = tf.get_variable("RNN_g_linear_target_b", [(14*14)])
 
 			self.trainables_variables.append(k_w)
@@ -233,7 +233,7 @@ if __name__ == "__main__" :
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
-		init_scale = 0.0001
+		init_scale = 0.001
 
 	class configobj_f(object):
 		batch_size = 2**5
@@ -246,7 +246,7 @@ if __name__ == "__main__" :
 		lr = 0.0002
 		max_grad_norm = 10
 		iterations = (10**7)
-		init_scale = 0.0001
+		init_scale = 0.001
 
 	class configobj_g(object):
 		batch_size = 2**4
@@ -259,7 +259,7 @@ if __name__ == "__main__" :
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
-		init_scale = 0.0001
+		init_scale = 0.001
 
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
@@ -400,6 +400,6 @@ if __name__ == "__main__" :
 				accumulator_loss_d += cost
 				stepsingen_loss_d += 1
 
-			if ((i+1) % 10000 == 0):
+			if ((i+1) % 5000 == 0):
 				save_path = saver.save(session, "model_single_5.ckpt")
 				print("Model saved in file: %s" % save_path)
