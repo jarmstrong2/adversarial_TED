@@ -241,7 +241,7 @@ if __name__ == "__main__" :
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
-		init_scale = 0.008
+		init_scale = 0.0008
 
 	class configobj_f(object):
 		batch_size = 2**6
@@ -254,7 +254,7 @@ if __name__ == "__main__" :
 		lr = 0.0002
 		max_grad_norm = 10
 		iterations = (10**7)
-		init_scale = 0.008
+		init_scale = 0.0008
 
 	class configobj_g(object):
 		batch_size = 2**5
@@ -267,7 +267,7 @@ if __name__ == "__main__" :
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
-		init_scale = 0.008
+		init_scale = 0.0008
 
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
@@ -303,7 +303,7 @@ if __name__ == "__main__" :
 		stepsingen_loss_d = 0
 
 		for i in range(configobj().iterations):
-			if ((i+1) % 1000 == 0):
+			if ((i+1) % 100 == 0):
 				print("------------")
 				print("Step: {}".format(i+1))
 				
