@@ -57,12 +57,19 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(g_w)
 			self.trainables_variables.append(g_b)
 
-			# linear trans for hidden_size_RNN_g -> [x_image_size * y_image_size]
-			h_w = tf.get_variable("RNN_g_output_target_w", [hidden_size_RNN_g, (14*14)])
-			h_b = tf.get_variable("RNN_g_output_target_b", [(14*14)])
+			# linear trans for hidden_size_RNN_g -> hidden_size_RNN_g*2
+			h_1_w = tf.get_variable("RNN_g_1_output_target_w", [hidden_size_RNN_g, hidden_size_RNN_g*2])
+			h_1_b = tf.get_variable("RNN_g_1_output_target_b", [hidden_size_RNN_g*2])
 
-			self.trainables_variables.append(h_w)
-			self.trainables_variables.append(h_b)
+			self.trainables_variables.append(h_1_w)
+			self.trainables_variables.append(h_1_b)
+
+			# linear trans for hidden_size_RNN_g*2 -> [x_image_size * y_image_size]
+			h_2_w = tf.get_variable("RNN_g_2_output_target_w", [hidden_size_RNN_g*2, (14*14)])
+			h_2_b = tf.get_variable("RNN_g_2_output_target_b", [(14*14)])
+
+			self.trainables_variables.append(h_2_w)
+			self.trainables_variables.append(h_2_b)
 
 			output = []
 			cell_input = tf.matmul(init_input, g_w) + g_b
@@ -74,7 +81,8 @@ class RNN_MNIST_model(object):
 				for time_step in range(4):
 					if time_step > 0: tf.get_variable_scope().reuse_variables()
 					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
-					cell_output = tf.matmul(cell_output, h_w) + h_b
+					cell_output = tf.matmul(cell_output, h_1_w) + h_1_b
+					cell_output = tf.matmul(cell_output, h_2_w) + h_2_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
 					cell_input = tf.matmul(new_input, g_w) + g_b
@@ -128,8 +136,6 @@ class RNN_MNIST_model(object):
 			init_state = (tf.nn.rnn_cell.LSTMStateTuple(init_state_input, init_state_input),)
 			for layer in range(config.lstm_layers_RNN_d - 1):
 				init_state += (tf.nn.rnn_cell.LSTMStateTuple(init_state_input, init_state_input),)
-
-			#init_state2 = tf.nn.rnn_cell.LSTMStateTuple(init_state, init_state)
 
 			lstm_variables = []
 
