@@ -129,19 +129,17 @@ class RNN_MNIST_model(object):
 			for layer in range(config.lstm_layers_RNN_d - 1):
 				init_state += ((init_state_input,init_state_input),)
 
+			init_state2 = tf.nn.rnn_cell.LSTMStateTuple(init_state_input, init_state_input)
+
 			lstm_variables = []
 
 			with tf.variable_scope("RNN_d") as vs:
-				state = init_state
-				# output, _ = tf.nn.dynamic_rnn(
-		  #     		cell,
-		  #     		self.image_input,
-		  #     		initial_state = init_state,
-		  #     		dtype=tf.float32,
-		  #     	)
-				for time_step in range(4):
-					if time_step > 0: tf.get_variable_scope().reuse_variables()
-					(output, state) = cell(tf.slice(self.image_input, [0,time_step,0], [batch_size,1,14*14]), state)
+				output, _ = tf.nn.dynamic_rnn(
+		      		cell,
+		      		self.image_input,
+		      		initial_state = init_state2,
+		      		dtype=tf.float32,
+		      	)
 
 				lstm_variables = [v for v in tf.all_variables()
                     if v.name.startswith(vs.name)]				
