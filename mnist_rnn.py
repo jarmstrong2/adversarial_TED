@@ -57,12 +57,23 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(g_w)
 			self.trainables_variables.append(g_b)
 
-			# linear trans for hidden_size_RNN_g -> [x_image_size * y_image_size]
-			h_w = tf.get_variable("RNN_g_output_target_w", [hidden_size_RNN_g, (14*14)])
-			h_b = tf.get_variable("RNN_g_output_target_b", [(14*14)])
+			# --- Linear layer to produce image blocks
 
-			self.trainables_variables.append(h_w)
-			self.trainables_variables.append(h_b)
+			# linear trans for hidden_size_RNN_g -> hidden_size_RNN_g*2
+			h_1_w = tf.get_variable("RNN_g_1_output_target_w", [hidden_size_RNN_g, hidden_size_RNN_g*2])
+			h_1_b = tf.get_variable("RNN_g_1_output_target_b", [hidden_size_RNN_g*2])
+
+			self.trainables_variables.append(h_1_w)
+			self.trainables_variables.append(h_1_b)
+
+			# linear trans for hidden_size_RNN_g*2 -> [x_image_size * y_image_size]
+			h_2_w = tf.get_variable("RNN_g_2_output_target_w", [hidden_size_RNN_g*2, (14*14)])
+			h_2_b = tf.get_variable("RNN_g_2_output_target_b", [(14*14)])
+
+			# ---
+
+			self.trainables_variables.append(h_2_w)
+			self.trainables_variables.append(h_2_b)
 
 			output = []
 			cell_input = tf.matmul(init_input, g_w) + g_b
@@ -74,7 +85,8 @@ class RNN_MNIST_model(object):
 				for time_step in range(4):
 					if time_step > 0: tf.get_variable_scope().reuse_variables()
 					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
-					cell_output = tf.matmul(cell_output, h_w) + h_b
+					cell_output = tf.matmul(cell_output, h_1_w) + h_1_b
+					cell_output = tf.matmul(cell_output, h_2_w) + h_2_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
 					cell_input = tf.matmul(new_input, g_w) + g_b
@@ -202,9 +214,8 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
-		hidden_size_RNN_g = 800
+		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		#lr = 0.0001
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 10**7
@@ -216,9 +227,8 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
-		hidden_size_RNN_g = 800
+		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		#lr = 0.0002
 		lr = 0.0002
 		max_grad_norm = 10
 		iterations = (10**6)
@@ -230,7 +240,7 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
-		hidden_size_RNN_g = 800
+		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0001
 		max_grad_norm = 10
@@ -300,7 +310,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_7.png')
+				plt.savefig('classification_test.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -319,7 +329,7 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_7.png')
+				plt.savefig('loss_test.png')
 
 			# update the generator
 			if ((i+1) % 3 == 0):
@@ -381,5 +391,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if ((i+1) % 100000 == 0):
-				save_path = saver.save(session, "model_quad_7.ckpt")
+				save_path = saver.save(session, "model_quad_test.ckpt")
 				print("Model saved in file: %s" % save_path)
