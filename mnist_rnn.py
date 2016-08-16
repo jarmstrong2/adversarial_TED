@@ -70,10 +70,10 @@ class RNN_MNIST_model(object):
 			h_2_w = tf.get_variable("RNN_g_2_output_target_w", [hidden_size_RNN_g*2, (14*14)])
 			h_2_b = tf.get_variable("RNN_g_2_output_target_b", [(14*14)])
 
-			# ---
-
 			self.trainables_variables.append(h_2_w)
 			self.trainables_variables.append(h_2_b)
+
+			# ---
 
 			output = []
 			cell_input = tf.matmul(init_input, g_w) + g_b
