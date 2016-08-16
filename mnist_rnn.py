@@ -135,8 +135,8 @@ class RNN_MNIST_model(object):
 				output, _ = tf.nn.dynamic_rnn(
 		      		cell,
 		      		self.image_input,
-		      		initial_state = init_state,
-		      		#dtype=tf.float32,
+		      		initial_state = init_state_input,
+		      		dtype=tf.float32,
 		      	)
 
 				lstm_variables = [v for v in tf.all_variables()
