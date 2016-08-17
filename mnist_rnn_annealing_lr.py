@@ -181,7 +181,7 @@ class RNN_MNIST_model(object):
 			self.global_step = tf.Variable(0, trainable=False)
 			starter_learning_rate = config.lr
 			self.lr = tf.train.exponential_decay(starter_learning_rate, self.global_step,
-                                           7500, 0.96)#, staircase=True)
+                                           5000, 0.96)#, staircase=True)
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
@@ -313,7 +313,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_anneal_5.png')
+				plt.savefig('classification_anneal_6.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -332,7 +332,7 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_anneal_5.png')
+				plt.savefig('loss_anneal_6.png')
 
 			# update the generator
 			if ((i+1) % 3 == 0):
@@ -394,5 +394,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if ((i+1) % 10000 == 0):
-				save_path = saver.save(session, "model_quad_anneal_5.ckpt")
+				save_path = saver.save(session, "model_quad_anneal_6.ckpt")
 				print("Model saved in file: %s" % save_path)
