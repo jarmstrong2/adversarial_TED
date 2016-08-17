@@ -184,7 +184,7 @@ class RNN_MNIST_model(object):
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
 			self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr)
-			self.train_op = self.optimizer.apply_gradients(zip(grads, self.trainables_variables))
+			self.train_op = self.optimizer.apply_gradients(zip(grads, self.trainables_variables), global_step=self.global_step)
 
 		# ------------------------------------
 
@@ -258,6 +258,7 @@ if __name__ == "__main__" :
 			mod_d = RNN_MNIST_model(configobj(), True, model_type="DISC")
 
 		tf.initialize_all_variables().run()
+
 		saver = tf.train.Saver()
 
 		x_plot_class_g = []
