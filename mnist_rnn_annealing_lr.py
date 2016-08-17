@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
+splits = [1,2,4,7,14,28]
+
 class RNN_MNIST_model(object):
 	def __init__(self, config, is_training = True, model_type="FULL"):
 		batch_size = config.batch_size
@@ -179,7 +181,7 @@ class RNN_MNIST_model(object):
 			self.global_step = tf.Variable(0, trainable=False)
 			starter_learning_rate = config.lr
 			self.lr = tf.train.exponential_decay(starter_learning_rate, self.global_step,
-                                           1000, 0.96)#, staircase=True)
+                                           2500, 0.96)#, staircase=True)
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
