@@ -176,9 +176,9 @@ class RNN_MNIST_model(object):
 			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
 			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-			global_step = tf.Variable(0, trainable=False)
+			self.global_step = tf.Variable(0, trainable=False)
 			starter_learning_rate = config.lr
-			self.lr = tf.train.exponential_decay(starter_learning_rate, global_step,
+			self.lr = tf.train.exponential_decay(starter_learning_rate, self.global_step,
                                            100000, 0.96, staircase=True)
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
@@ -382,7 +382,9 @@ if __name__ == "__main__" :
 				y = c[:, x.size//len(x):(x.size//len(x))+(y.size//len(y))].reshape(y.shape)
 				t = c[:, (x.size//len(x))+(y.size//len(y)):].reshape(t.shape)
 
-				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
+				_, cost, acc, step_test = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy, mod.global_step), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
+
+				print(step_test)
 
 				accumulator_class_d += acc
 				stepsingen_class_d += 1
