@@ -179,7 +179,7 @@ class RNN_MNIST_model(object):
 			self.global_step = tf.Variable(0, trainable=False)
 			starter_learning_rate = config.lr
 			self.lr = tf.train.exponential_decay(starter_learning_rate, self.global_step,
-                                           100000, 0.96, staircase=True)
+                                           10000, 0.96, staircase=True)
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
