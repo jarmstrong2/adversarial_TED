@@ -342,7 +342,10 @@ if __name__ == "__main__" :
 				target_gen_bin = np.zeros((configobj().batch_size, 2))
 				target_gen_bin[:,0] = 1
 
-				_, cost_gen_g, acc_gen_g = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
+				_, cost_gen_g, acc_gen_g, stepper = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy, mod_f.global_step), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
+
+				print(stepper)
+				print("--")
 
 				accumulator_class_g += acc_gen_g
 				stepsingen_class_g += 1
