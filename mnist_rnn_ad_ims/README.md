@@ -1,3 +1,5 @@
+<style>img[alt=drawing] { width: 200px; }</style>
+
 ### TIMESTEP MODEL
 
 | Variable          | Value     |
@@ -11,6 +13,7 @@
 | iterations        | > 2.5e6       |
 
 #### SAMPLES
+![drawing](full_mod_aug_8/im0_1.png)
 
 |0|1|2|3|4|5|6|7|8|9|
 |:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
