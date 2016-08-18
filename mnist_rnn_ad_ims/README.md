@@ -1,5 +1,6 @@
+<dl>
 <style>img[alt=drawing] { width: 200px; }</style>
-
+</dl>
 ### TIMESTEP MODEL
 
 | Variable          | Value     |
