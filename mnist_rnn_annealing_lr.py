@@ -178,7 +178,7 @@ class RNN_MNIST_model(object):
 			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
 			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-			self.global_step = tf.Variable(0, trainable=False)
+			self.global_step = tf.Variable(0, trainable=False, dtype=tf.float32)
 			learning_rate = config.lr
 			self.lr = learning_rate * 0.96 * (self.global_step / 1000)
 
