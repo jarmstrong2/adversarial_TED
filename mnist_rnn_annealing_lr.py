@@ -179,9 +179,9 @@ class RNN_MNIST_model(object):
 			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
 			self.global_step = tf.Variable(0, trainable=False)
-			starter_learning_rate = config.lr
-			self.lr = tf.train.exponential_decay(starter_learning_rate, self.global_step,
-                                           50000, 0.96)#, staircase=True)
+			learning_rate = config.lr
+			self.lr = learning_rate * 0.96 * (self.global_step / 1000)
+
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
@@ -218,7 +218,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.0008
+		lr = 0.001
 		max_grad_norm = 10
 		iterations = 10**7
 		init_scale = 0.01
