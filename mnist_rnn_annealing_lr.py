@@ -391,7 +391,7 @@ if __name__ == "__main__" :
 				y = c[:, x.size//len(x):(x.size//len(x))+(y.size//len(y))].reshape(y.shape)
 				t = c[:, (x.size//len(x))+(y.size//len(y)):].reshape(t.shape)
 
-				_, cost, acc, lr = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy, mod.lr), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
+				_, cost, acc, lr = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy, mod_d.lr), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
 
 				print(lr)
 
