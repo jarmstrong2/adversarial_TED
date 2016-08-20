@@ -180,7 +180,10 @@ class RNN_MNIST_model(object):
 
 			self.global_step = tf.Variable(0, trainable=False, dtype=tf.float32)
 			learning_rate = config.lr
-			self.lr = learning_rate - (3.96e-7 * (self.global_step / 1000.0))
+			if model_type == "DISC":
+				self.lr = learning_rate - (4.96e-7 * (self.global_step / 1000.0))
+			else:
+				self.lr = learning_rate - (4.96e-7 * ((self.global_step*2) / 1000.0))
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
@@ -392,8 +395,6 @@ if __name__ == "__main__" :
 				t = c[:, (x.size//len(x))+(y.size//len(y)):].reshape(t.shape)
 
 				_, cost, acc, lr = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy, mod_d.lr), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
-
-				print(lr)
 
 				accumulator_class_d += acc
 				stepsingen_class_d += 1
