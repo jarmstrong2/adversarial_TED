@@ -180,7 +180,7 @@ class RNN_MNIST_model(object):
 
 			self.global_step = tf.Variable(0, trainable=False, dtype=tf.float32)
 			learning_rate = config.lr
-			self.lr = learning_rate - (8e-7 * (self.global_step / 1000.0))
+			self.lr = learning_rate - (3.96e-7 * (self.global_step / 1000.0))
 
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
@@ -220,7 +220,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_d = 400
 		lr = 0.001
 		max_grad_norm = 10
-		iterations = 10**7
+		iterations = 3*(10**6)
 		init_scale = 0.01
 
 	class configobj_f(object):
@@ -233,7 +233,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_d = 400
 		lr = 0.001
 		max_grad_norm = 10
-		iterations = 10**7
+		iterations = 3*(10**6)
 		init_scale = 0.01
 
 	class configobj_g(object):
