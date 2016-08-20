@@ -182,7 +182,6 @@ class RNN_MNIST_model(object):
 			learning_rate = config.lr
 			self.lr = learning_rate - (3.96e-7 * (self.global_step / 1000.0))
 
-
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
 			self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr)
@@ -315,7 +314,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_anneal_7.png')
+				plt.savefig('classification_anneal_9.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -334,11 +333,11 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_anneal_7.png')
+				plt.savefig('loss_anneal_9.png')
 
 				if acc < min_classification:
 					min_classification = acc
-					save_path = saver.save(session, "model_quad_anneal_7.ckpt")
+					save_path = saver.save(session, "model_quad_anneal_9.ckpt")
 					print("Model saved in file: %s" % save_path)
 
 			# update the generator
@@ -392,7 +391,9 @@ if __name__ == "__main__" :
 				y = c[:, x.size//len(x):(x.size//len(x))+(y.size//len(y))].reshape(y.shape)
 				t = c[:, (x.size//len(x))+(y.size//len(y)):].reshape(t.shape)
 
-				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
+				_, cost, acc, lr = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy, mod.lr), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
+
+				print(lr)
 
 				accumulator_class_d += acc
 				stepsingen_class_d += 1
