@@ -183,7 +183,7 @@ class RNN_MNIST_model(object):
 			if model_type == "DISC":
 				self.lr = learning_rate - (3.6e-8 * (self.global_step / 1000.0))
 			else:
-				self.lr = learning_rate - (3.6e-8 * ((self.global_step*2) / 1000.0))
+				self.lr = learning_rate - (3.6e-8 * ((self.global_step/2) / 1000.0))
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
@@ -220,7 +220,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.0005
+		lr = 0.0001
 		max_grad_norm = 10
 		iterations = 3*(10**6)
 		init_scale = 0.01
@@ -233,7 +233,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.0005
+		lr = 0.0002
 		max_grad_norm = 10
 		iterations = 3*(10**6)
 		init_scale = 0.01
