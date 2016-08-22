@@ -181,9 +181,9 @@ class RNN_MNIST_model(object):
 			self.global_step = tf.Variable(0, trainable=False, dtype=tf.float32)
 			learning_rate = config.lr
 			if model_type == "DISC":
-				self.lr = learning_rate - (3.6e-8 * (self.global_step / 1000.0))
+				self.lr = learning_rate - (9e-8 * (self.global_step / 1000.0))
 			else:
-				self.lr = learning_rate - (3.6e-8 * ((self.global_step/2) / 1000.0))
+				self.lr = learning_rate - (9e-8 * ((self.global_step/2) / 1000.0))
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
@@ -317,7 +317,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_anneal_10.png')
+				plt.savefig('classification_anneal_11.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -336,11 +336,11 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_anneal_10.png')
+				plt.savefig('loss_anneal_11.png')
 
 				if acc < min_classification:
 					min_classification = acc
-					save_path = saver.save(session, "model_quad_anneal_10.ckpt")
+					save_path = saver.save(session, "model_quad_anneal_11.ckpt")
 					print("Model saved in file: %s" % save_path)
 
 			# update the generator
