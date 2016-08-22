@@ -181,9 +181,9 @@ class RNN_MNIST_model(object):
 			self.global_step = tf.Variable(0, trainable=False, dtype=tf.float32, name="{}_global_step".format(model_type))
 			learning_rate = tf.Variable(config.lr, trainable=False, dtype=tf.float32)
 			if model_type == "DISC":
-				self.lr = tf.cond(self.global_step > 70000, lambda: learning_rate - (9e-8 * (self.global_step / 1000.0)), lambda: learning_rate)
+				self.lr = tf.cond(self.global_step > 140000, lambda: learning_rate - (9e-8 * (self.global_step / 1000.0)), lambda: learning_rate)
 			else:
-				self.lr = tf.cond(self.global_step > 35000, lambda: learning_rate - (9e-8 * ((self.global_step/2) / 1000.0)), lambda: learning_rate)
+				self.lr = tf.cond(self.global_step > 70000, lambda: learning_rate - (9e-8 * ((self.global_step/2) / 1000.0)), lambda: learning_rate)
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
