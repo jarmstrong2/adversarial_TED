@@ -178,7 +178,7 @@ class RNN_MNIST_model(object):
 			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
 			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-			self.global_step = tf.Variable(0, trainable=False, dtype=tf.float32)
+			self.global_step = tf.Variable(0, trainable=False, dtype=tf.float32, name="{}_global_step".format(model_type))
 			learning_rate = config.lr
 			if model_type == "DISC":
 				self.lr = tf.cond(self.global_step > 70000, lambda: learning_rate - (9e-8 * (self.global_step / 1000.0)), lambda: learning_rate)
