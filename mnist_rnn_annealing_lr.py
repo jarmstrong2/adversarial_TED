@@ -338,10 +338,10 @@ if __name__ == "__main__" :
 				plt.title('Loss')
 				plt.savefig('loss_anneal_11.png')
 
-				if acc < min_classification:
-					min_classification = acc
-					save_path = saver.save(session, "model_quad_anneal_11.ckpt")
-					print("Model saved in file: %s" % save_path)
+				#if acc < min_classification:
+					#min_classification = acc
+					# save_path = saver.save(session, "model_quad_anneal_11.ckpt")
+					# print("Model saved in file: %s" % save_path)
 
 			# update the generator
 			if ((i+1) % 3 == 0):
@@ -401,3 +401,7 @@ if __name__ == "__main__" :
 
 				accumulator_loss_d += cost
 				stepsingen_loss_d += 1
+
+			if (i % 10000 == 0):
+				save_path = saver.save(session, "model_quad_anneal_11.ckpt")
+				print("Model saved in file: %s" % save_path)
