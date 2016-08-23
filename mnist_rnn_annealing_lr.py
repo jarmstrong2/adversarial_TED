@@ -181,9 +181,9 @@ class RNN_MNIST_model(object):
 			self.global_step = tf.Variable(0, trainable=False, dtype=tf.float32, name="{}_global_step".format(model_type))
 			learning_rate = tf.Variable(config.lr, trainable=False, dtype=tf.float32)
 			if model_type == "DISC":
-				self.lr = tf.cond(self.global_step > 140000, lambda: learning_rate - (9e-8 * (self.global_step / 1000.0)), lambda: learning_rate)
+				self.lr = tf.cond(self.global_step > 700000, lambda: learning_rate - (9e-8 * (self.global_step / 1000.0)), lambda: learning_rate)
 			else:
-				self.lr = tf.cond(self.global_step > 70000, lambda: learning_rate - (9e-8 * ((self.global_step) / 1000.0)), lambda: learning_rate)
+				self.lr = tf.cond(self.global_step > 350000, lambda: learning_rate - (9e-8 * ((self.global_step) / 1000.0)), lambda: learning_rate)
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
@@ -233,7 +233,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.0001
+		lr = 0.0002
 		max_grad_norm = 10
 		iterations = 3*(10**6)
 		init_scale = 0.01
@@ -317,7 +317,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_anneal_13.png')
+				plt.savefig('classification_anneal_14.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -336,7 +336,7 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_anneal_13.png')
+				plt.savefig('loss_anneal_14.png')
 
 				#if acc < min_classification:
 					#min_classification = acc
@@ -403,5 +403,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if (i % 10000 == 0):
-				save_path = saver.save(session, "model_quad_anneal_13.ckpt")
+				save_path = saver.save(session, "model_quad_anneal_14.ckpt")
 				print("Model saved in file: %s" % save_path)
