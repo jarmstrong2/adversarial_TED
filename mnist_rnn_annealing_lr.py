@@ -181,9 +181,9 @@ class RNN_MNIST_model(object):
 			self.global_step = tf.Variable(0, trainable=False, dtype=tf.float32, name="{}_global_step".format(model_type))
 			learning_rate = tf.Variable(config.lr, trainable=False, dtype=tf.float32)
 			if model_type == "DISC":
-				self.lr = tf.cond(self.global_step > 700000, lambda: learning_rate - (9e-8 * (self.global_step / 1000.0)), lambda: learning_rate)
+				self.lr = learning_rate#tf.cond(self.global_step > 700000, lambda: learning_rate - (9e-8 * (self.global_step / 1000.0)), lambda: learning_rate)
 			else:
-				self.lr = tf.cond(self.global_step > 350000, lambda: learning_rate - (9e-8 * ((self.global_step) / 1000.0)), lambda: learning_rate)
+				self.lr = tf.cond(self.global_step > 70000, lambda: learning_rate - (9e-8 * ((self.global_step) / 1000.0)), lambda: learning_rate)
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
@@ -285,6 +285,9 @@ if __name__ == "__main__" :
 		accumulator_loss_d = 0
 		stepsingen_loss_d = 0
 
+		y_plot_lr_d = []
+		y_plot_lr_g = []
+
 		min_classification = 100
 
 		for i in range(configobj().iterations):
@@ -317,7 +320,8 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_anneal_14.png')
+				plt.savefig('classification_anneal_15.png')
+
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -336,7 +340,17 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_anneal_14.png')
+				plt.savefig('loss_anneal_15.png')
+
+				y_plot_lr_d.append(lr)
+				y_plot_lr_g.append(gen_lr)
+
+				plt.figure()
+				lr_plt_g, = plt.plot(x_plot_loss_g, y_plot_lr_g, 'r-')
+				lr_plt_d, = plt.plot(x_plot_loss_d, y_plot_lr_d, 'b-')
+				plt.legend([lr_plt_g, lr_plt_d], ["GEN", "DISC"])
+				plt.title('Learning Rate')
+				plt.savefig('lr_anneal_15.png')
 
 				#if acc < min_classification:
 					#min_classification = acc
@@ -354,7 +368,7 @@ if __name__ == "__main__" :
 				target_gen_bin = np.zeros((configobj().batch_size, 2))
 				target_gen_bin[:,0] = 1
 
-				_, cost_gen_g, acc_gen_g = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
+				_, cost_gen_g, acc_gen_g, gen_lr = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy, mod_f.lr), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
 
 				accumulator_class_g += acc_gen_g
 				stepsingen_class_g += 1
@@ -403,5 +417,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if (i % 10000 == 0):
-				save_path = saver.save(session, "model_quad_anneal_14.ckpt")
+				save_path = saver.save(session, "model_quad_anneal_15.ckpt")
 				print("Model saved in file: %s" % save_path)
