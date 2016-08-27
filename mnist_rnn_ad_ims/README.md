@@ -1,4 +1,4 @@
-### TIMESTEP MODEL
+### TIMESTEP ANNEALED MODEL
 
 | Variable          | Value     |
 | :---------------- | :---------|
@@ -10,6 +10,21 @@
 | lr                | 2e-4:GEN/1e-4:DISC    |
 | anneal schedule                | after 1e6 iterations -- learning_rate - (3e-8 * ((self.global_step) / 1000.0)):GEN/learning_rate - (1.33e-8 * ((self.global_step) / 1000.0)):DISC    |
 | iterations        | > 2.5e6       |
+
+#### SAMPLES
+
+|0|1|2|3|4|5|6|7|8|9|
+|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+|![alt tag](ann_ims/im0_1.png)|![alt tag](ann_ims/im1_1.png)|![alt tag](ann_ims/im2_1.png)|![alt tag](ann_ims/im3_1.png)|![alt tag](ann_ims/im4_1.png)|![alt tag](ann_ims/im5_1.png)|![alt tag](ann_ims/im6_1.png)|![alt tag](ann_ims/im7_1.png)|![alt tag](ann_ims/im8_1.png)|![alt tag](ann_ims/im9_1.png)|
+|![alt tag](ann_ims/im0_2.png)|![alt tag](ann_ims/im1_2.png)|![alt tag](ann_ims/im2_2.png)|![alt tag](ann_ims/im3_2.png)|![alt tag](ann_ims/im4_2.png)|![alt tag](ann_ims/im5_2.png)|![alt tag](ann_ims/im6_2.png)|![alt tag](full_mod_aug_8/im7_2.png)|![alt tag](ann_ims/im8_2.png)|![alt tag](ann_ims/im9_2.png)|
+|![alt tag](ann_ims/im0_3.png)|![alt tag](ann_ims/im1_3.png)|![alt tag](ann_ims/im2_3.png)|![alt tag](ann_ims/im3_3.png)|![alt tag](ann_ims/im4_3.png)|![alt tag](ann_ims/im5_3.png)|![alt tag](ann_ims/im6_3.png)|![alt tag](ann_ims/im7_3.png)|![alt tag](ann_ims/im8_3.png)|![alt tag](ann_ims/im9_3.png)|
+|![alt tag](ann_ims/im0_4.png)|![alt tag](ann_ims/im1_4.png)|![alt tag](ann_ims/im2_4.png)|![alt tag](ann_ims/im3_4.png)|![alt tag](ann_ims/im4_4.png)|![alt tag](ann_ims/im5_4.png)|![alt tag](ann_ims/im6_4.png)|![alt tag](ann_ims/im7_4.png)|![alt tag](ann_ims/im8_4.png)|![alt tag](ann_ims/im9_4.png)|
+|![alt tag](ann_ims/im0_5.png)|![alt tag](ann_ims/im1_5.png)|![alt tag](ann_ims/im2_5.png)|![alt tag](ann_ims/im3_5.png)|![alt tag](ann_ims/im4_5.png)|![alt tag](ann_ims/im5_5.png)|![alt tag](ann_ims/im6_5.png)|![alt tag](ann_ims/im7_5.png)|![alt tag](ann_ims/im8_5.png)|![alt tag](ann_ims/im9_5.png)|
+|![alt tag](ann_ims/im0_6.png)|![alt tag](ann_ims/im1_6.png)|![alt tag](ann_ims/im2_6.png)|![alt tag](ann_ims/im3_6.png)|![alt tag](ann_ims/im4_6.png)|![alt tag](ann_ims/im5_6.png)|![alt tag](ann_ims/im6_6.png)|![alt tag](ann_ims/im7_6.png)|![alt tag](ann_ims/im8_6.png)|![alt tag](ann_ims/im9_6.png)|
+|![alt tag](ann_ims/im0_7.png)|![alt tag](ann_ims/im1_7.png)|![alt tag](ann_ims/im2_7.png)|![alt tag](ann_ims/im3_7.png)|![alt tag](ann_ims/im4_7.png)|![alt tag](ann_ims/im5_7.png)|![alt tag](ann_ims/im6_7.png)|![alt tag](ann_ims/im7_7.png)|![alt tag](ann_ims/im8_7.png)|![alt tag](ann_ims/im9_7.png)|
+|![alt tag](ann_ims/im0_8.png)|![alt tag](ann_ims/im1_8.png)|![alt tag](ann_ims/im2_8.png)|![alt tag](ann_ims/im3_8.png)|![alt tag](ann_ims/im4_8.png)|![alt tag](ann_ims/im5_8.png)|![alt tag](ann_ims/im6_8.png)|![alt tag](ann_ims/im7_8.png)|![alt tag](ann_ims/im8_8.png)|![alt tag](ann_ims/im9_8.png)|
+|![alt tag](ann_ims/im0_9.png)|![alt tag](ann_ims/im1_9.png)|![alt tag](ann_ims/im2_9.png)|![alt tag](ann_ims/im3_9.png)|![alt tag](ann_ims/im4_9.png)|![alt tag](ann_ims/im5_9.png)|![alt tag](ann_ims/im6_9.png)|![alt tag](ann_ims/im7_9.png)|![alt tag](ann_ims/im8_9.png)|![alt tag](ann_ims/im9_9.png)|
+|![alt tag](ann_ims/im0_10.png)|![alt tag](ann_ims/im1_10.png)|![alt tag](ann_ims/im2_10.png)|![alt tag](ann_ims/im3_10.png)|![alt tag](ann_ims/im4_10.png)|![alt tag](ann_ims/im5_10.png)|![alt tag](ann_ims/im6_10.png)|![alt tag](ann_ims/im7_10.png)|![alt tag](ann_ims/im8_10.png)|![alt tag](ann_ims/im9_10.png)|
 
 ### TIMESTEP MODEL
 
