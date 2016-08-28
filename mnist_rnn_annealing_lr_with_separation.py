@@ -220,6 +220,7 @@ def getMovingAvg(trainables):
 	for parameters in trainables :
 		for parameter in parameters:
 			print(type(parameter))
+			print(parameter.shape)
 			if type(parameter) is list:
 				rollingsum += sum(parameter)
 				rollingcount += len(parameter)
