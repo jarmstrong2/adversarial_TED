@@ -214,6 +214,20 @@ def getinput(batch_x):
 				input_x = np.concatenate((input_x, split), axis=1)
 	return input_x
 
+def getMovingAvg(trainables):
+	rollingsum = 0
+	rollingcount = 0
+	for parameters in trainables :
+		for parameter in parameters:
+			if type(parameter) is list:
+				rollingsum += sum(parameter)
+				rollingcount += len(parameter)
+			else:
+				rollingsum += parameter
+				rollingcount += 1
+
+	return rollingsum/rollingcount
+
 
 if __name__ == "__main__" :
 	class configobj(object):
@@ -289,6 +303,9 @@ if __name__ == "__main__" :
 		accumulator_loss_d = 0
 		stepsingen_loss_d = 0
 
+		y_plot_avg_g = []
+		y_plot_avg_d = []
+
 		for i in range(configobj().iterations):
 			if ((i+1) % 100 == 0):
 				print("------------")
@@ -301,9 +318,6 @@ if __name__ == "__main__" :
 
 				#print((cost + cost_gen) / 2)
 				print("Loss: {}, Accuracy: {}".format(cost, acc))
-
-				for parameters in trainable_g :
-					print(parameters)
 
 				x_plot_class_g.append(i)
 				y_plot_class_g.append(accumulator_class_g/stepsingen_class_g)
@@ -342,6 +356,17 @@ if __name__ == "__main__" :
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
 				plt.savefig('loss_sep_4.png')
+
+				y_plot_avg_g.append(getMovingAvg(trainable_g))
+				y_plot_avg_d.append(getMovingAvg(trainable_d))
+				plt.figure()
+				avg_plt_g, = plt.plot(x_plot_loss_g, y_plot_avg_g, 'r-')
+				avg_plt_d, = plt.plot(x_plot_loss_d, y_plot_avg_d, 'b-')
+				plt.legend([avg_plt_g, avg_plt_d], ["GEN", "DISC"])
+				plt.title('Moving Average')
+				plt.savefig('avg_sep_4.png')
+
+
 
 			# update the generator
 			if ((i+1) % 3 == 0):
