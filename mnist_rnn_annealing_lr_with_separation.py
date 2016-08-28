@@ -219,13 +219,10 @@ def getMovingAvg(trainables):
 	rollingcount = 0
 	for parameters in trainables :
 		for parameter in parameters:
-			print(type(parameter))
-			print(parameter.shape)
 			if type(parameter) is np.ndarray:
 				rollingsum += np.sum(parameter)
 				rollingcount += parameter.size
 			else:
-				print(parameter)
 				rollingsum += parameter
 				rollingcount += 1
 
@@ -310,7 +307,7 @@ if __name__ == "__main__" :
 		y_plot_avg_d = []
 
 		for i in range(configobj().iterations):
-			if ((i+1) % 100 == 0):
+			if ((i+1) % 1000 == 0):
 				print("------------")
 				print("Step: {}".format(i+1))
 				
