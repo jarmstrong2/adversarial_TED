@@ -221,14 +221,15 @@ def getMovingAvg(trainables):
 		for parameter in parameters:
 			print(type(parameter))
 			print(parameter.shape)
-			if type(parameter) is list:
-				rollingsum += sum(parameter)
-				rollingcount += len(parameter)
+			if type(parameter) is 'numpy.ndarray':
+				rollingsum += np.sum(parameter)
+				rollingcount += parameter.size
 			else:
+				print(parameter)
 				rollingsum += parameter
 				rollingcount += 1
 
-	return rollingsum/rollingcount
+	return rollingsum/float(rollingcount)
 
 
 if __name__ == "__main__" :
