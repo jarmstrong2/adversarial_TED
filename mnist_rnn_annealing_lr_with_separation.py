@@ -303,7 +303,7 @@ if __name__ == "__main__" :
 				print("Loss: {}, Accuracy: {}".format(cost, acc))
 
 				for parameters in trainable_g :
-					print(parameters.shape())
+					print(parameters)
 
 				x_plot_class_g.append(i)
 				y_plot_class_g.append(accumulator_class_g/stepsingen_class_g)
