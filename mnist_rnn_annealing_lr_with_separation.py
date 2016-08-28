@@ -60,19 +60,25 @@ class RNN_MNIST_model(object):
 			self.trainables_variables.append(g_w)
 			self.trainables_variables.append(g_b)
 
-			# linear trans for hidden_size_RNN_g -> hidden_size_RNN_g*2
-			h_1_w = tf.get_variable("RNN_g_1_output_target_w", [hidden_size_RNN_g, hidden_size_RNN_g*2])
-			h_1_b = tf.get_variable("RNN_g_1_output_target_b", [hidden_size_RNN_g*2])
+			# # linear trans for hidden_size_RNN_g -> hidden_size_RNN_g*2
+			# h_1_w = tf.get_variable("RNN_g_1_output_target_w", [hidden_size_RNN_g, hidden_size_RNN_g*2])
+			# h_1_b = tf.get_variable("RNN_g_1_output_target_b", [hidden_size_RNN_g*2])
 
-			self.trainables_variables.append(h_1_w)
-			self.trainables_variables.append(h_1_b)
+			# self.trainables_variables.append(h_1_w)
+			# self.trainables_variables.append(h_1_b)
 
-			# linear trans for hidden_size_RNN_g*2 -> [x_image_size * y_image_size]
-			h_2_w = tf.get_variable("RNN_g_2_output_target_w", [hidden_size_RNN_g*2, ((28/splits[split_opt])*(28/splits[split_opt]))])
-			h_2_b = tf.get_variable("RNN_g_2_output_target_b", [((28/splits[split_opt])*(28/splits[split_opt]))])
+			# # linear trans for hidden_size_RNN_g*2 -> [x_image_size * y_image_size]
+			# h_2_w = tf.get_variable("RNN_g_2_output_target_w", [hidden_size_RNN_g*2, ((28/splits[split_opt])*(28/splits[split_opt]))])
+			# h_2_b = tf.get_variable("RNN_g_2_output_target_b", [((28/splits[split_opt])*(28/splits[split_opt]))])
 
-			self.trainables_variables.append(h_2_w)
-			self.trainables_variables.append(h_2_b)
+			# self.trainables_variables.append(h_2_w)
+			# self.trainables_variables.append(h_2_b)
+
+			h_w = tf.get_variable("RNN_g_output_target_w", [hidden_size_RNN_g, ((28/splits[split_opt])*(28/splits[split_opt]))])
+			h_b = tf.get_variable("RNN_g_output_target_b", [((28/splits[split_opt])*(28/splits[split_opt]))])
+
+			self.trainables_variables.append(h_w)
+			self.trainables_variables.append(h_b)
 
 			output = []
 			cell_input = tf.matmul(init_input, g_w) + g_b
@@ -84,8 +90,7 @@ class RNN_MNIST_model(object):
 				for time_step in range(splits[split_opt]**2):
 					if time_step > 0: tf.get_variable_scope().reuse_variables()
 					(cell_output, state) = cell(tf.nn.relu(cell_input), state)
-					cell_output = tf.matmul(cell_output, h_1_w) + h_1_b
-					cell_output = tf.matmul(cell_output, h_2_w) + h_2_b
+					cell_output = tf.matmul(cell_output, h_w) + h_b
 					output.append(cell_output)
 					new_input = tf.concat(1, [cell_output, self.target])
 					cell_input = tf.matmul(new_input, g_w) + g_b
@@ -181,8 +186,8 @@ class RNN_MNIST_model(object):
 
 			self.global_step = tf.Variable(0, trainable=False)
 			starter_learning_rate = config.lr
-			self.lr = tf.train.exponential_decay(starter_learning_rate, self.global_step,
-                                           1000, 0.96)#, staircase=True)
+			self.lr = starter_learning_rate#tf.train.exponential_decay(starter_learning_rate, self.global_step,
+   #                                         1000, 0.96)#, staircase=True)
 
 			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
 			                                   config.max_grad_norm)
@@ -219,9 +224,9 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.001
+		lr = 0.0001
 		max_grad_norm = 10
-		iterations = (10**5)*6
+		iterations = (10**6)*3
 		init_scale = 0.01
 
 	class configobj_f(object):
@@ -232,9 +237,9 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.002
+		lr = 0.0002
 		max_grad_norm = 10
-		iterations = (10**5)*6
+		iterations = (10**6)*3
 		init_scale = 0.01
 
 	class configobj_g(object):
@@ -245,7 +250,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.001
+		lr = 0.0001
 		max_grad_norm = 10
 		iterations = (10**5)*6
 		init_scale = 0.01
@@ -297,6 +302,9 @@ if __name__ == "__main__" :
 				#print((cost + cost_gen) / 2)
 				print("Loss: {}, Accuracy: {}".format(cost, acc))
 
+				for parameters in range(len(trainable_g)) :
+					print(parameters.shape())
+
 				x_plot_class_g.append(i)
 				y_plot_class_g.append(accumulator_class_g/stepsingen_class_g)
 
@@ -346,7 +354,7 @@ if __name__ == "__main__" :
 				target_gen_bin = np.zeros((configobj().batch_size, 2))
 				target_gen_bin[:,0] = 1
 
-				_, cost_gen_g, acc_gen_g = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
+				_, cost_gen_g, acc_gen_g, trainable_g = session.run((mod_f.train_op, mod_f.cost, mod_f.accuracy, mod_f.trainables_variables), {mod_f.z:z, mod_f.target_bin:target_gen_bin, mod_f.target:target_gen})
 
 				accumulator_class_g += acc_gen_g
 				stepsingen_class_g += 1
@@ -386,7 +394,7 @@ if __name__ == "__main__" :
 				y = c[:, x.size//len(x):(x.size//len(x))+(y.size//len(y))].reshape(y.shape)
 				t = c[:, (x.size//len(x))+(y.size//len(y)):].reshape(t.shape)
 
-				_, cost, acc = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
+				_, cost, acc, trainable_d = session.run((mod_d.train_op, mod_d.cost, mod_d.accuracy, mod_d.trainables_variables), {mod_d.target_bin:y, mod_d.target:t, mod_d.image_input:x})
 
 				accumulator_class_d += acc
 				stepsingen_class_d += 1
