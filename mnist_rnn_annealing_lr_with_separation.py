@@ -234,8 +234,8 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 6
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_g = 12
+		lstm_layers_RNN_d = 8
 		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 800
 		lr = 0.0001
@@ -247,8 +247,8 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 6
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_g = 12
+		lstm_layers_RNN_d = 8
 		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 800
 		lr = 0.0002
@@ -260,8 +260,8 @@ if __name__ == "__main__" :
 		batch_size = 2**6
 		keep_prob = 0.005
 		z_size = 100
-		lstm_layers_RNN_g = 6
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_g = 12
+		lstm_layers_RNN_d = 8
 		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 800
 		lr = 0.0001
