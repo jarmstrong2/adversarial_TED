@@ -241,7 +241,7 @@ if __name__ == "__main__" :
 		lr = 0.0001
 		max_grad_norm = 5
 		iterations = (10**6)*3
-		init_scale = 0.001
+		init_scale = 0.0005
 
 	class configobj_f(object):
 		batch_size = 2**7
@@ -254,7 +254,7 @@ if __name__ == "__main__" :
 		lr = 0.0002
 		max_grad_norm = 5
 		iterations = (10**6)*3
-		init_scale = 0.001
+		init_scale = 0.0005
 
 	class configobj_g(object):
 		batch_size = 2**6
@@ -267,7 +267,7 @@ if __name__ == "__main__" :
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = (10**5)*6
-		init_scale = 0.001
+		init_scale = 0.0005
 
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
@@ -336,7 +336,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_sep_4_1.png')
+				plt.savefig('classification_sep_4_2.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -355,7 +355,7 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_sep_4_1.png')
+				plt.savefig('loss_sep_4_2.png')
 
 				y_plot_avg_g.append(getMovingAvg(trainable_g))
 				y_plot_avg_d.append(getMovingAvg(trainable_d))
@@ -364,7 +364,7 @@ if __name__ == "__main__" :
 				avg_plt_d, = plt.plot(x_plot_loss_d, y_plot_avg_d, 'b-')
 				plt.legend([avg_plt_g, avg_plt_d], ["GEN", "DISC"])
 				plt.title('Moving Average')
-				plt.savefig('avg_sep_4_1.png')
+				plt.savefig('avg_sep_4_2.png')
 
 
 
@@ -428,5 +428,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if ((i+1) % 10000 == 0):
-				save_path = saver.save(session, "model_sep_4_1.ckpt")
+				save_path = saver.save(session, "model_sep_4_2.ckpt")
 				print("Model saved in file: %s" % save_path)
