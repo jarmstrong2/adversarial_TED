@@ -351,6 +351,7 @@ if __name__ == "__main__" :
 
 				accumulator_loss_d = 0
 				stepsingen_loss_d = 0
+				
 
 				plt.figure()
 				loss_plt_g, = plt.plot(x_plot_loss_g, y_plot_loss_g, 'r-')
