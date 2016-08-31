@@ -234,40 +234,40 @@ if __name__ == "__main__" :
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 12
-		lstm_layers_RNN_d = 8
-		hidden_size_RNN_g = 800
-		hidden_size_RNN_d = 800
+		lstm_layers_RNN_g = 6
+		lstm_layers_RNN_d = 4
+		hidden_size_RNN_g = 600
+		hidden_size_RNN_d = 400
 		lr = 0.0001
-		max_grad_norm = 10
+		max_grad_norm = 5
 		iterations = (10**6)*3
-		init_scale = 0.01
+		init_scale = 0.001
 
 	class configobj_f(object):
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
-		lstm_layers_RNN_g = 12
-		lstm_layers_RNN_d = 8
-		hidden_size_RNN_g = 800
-		hidden_size_RNN_d = 800
+		lstm_layers_RNN_g = 6
+		lstm_layers_RNN_d = 4
+		hidden_size_RNN_g = 600
+		hidden_size_RNN_d = 400
 		lr = 0.0002
-		max_grad_norm = 10
+		max_grad_norm = 5
 		iterations = (10**6)*3
-		init_scale = 0.01
+		init_scale = 0.001
 
 	class configobj_g(object):
 		batch_size = 2**6
 		keep_prob = 0.005
 		z_size = 100
-		lstm_layers_RNN_g = 12
-		lstm_layers_RNN_d = 8
-		hidden_size_RNN_g = 800
-		hidden_size_RNN_d = 800
+		lstm_layers_RNN_g = 6
+		lstm_layers_RNN_d = 4
+		hidden_size_RNN_g = 600
+		hidden_size_RNN_d = 400
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = (10**5)*6
-		init_scale = 0.01
+		init_scale = 0.001
 
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
