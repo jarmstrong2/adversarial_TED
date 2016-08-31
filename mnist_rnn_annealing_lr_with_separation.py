@@ -189,8 +189,10 @@ class RNN_MNIST_model(object):
 			self.lr = starter_learning_rate#tf.train.exponential_decay(starter_learning_rate, self.global_step,
    #                                         1000, 0.96)#, staircase=True)
 
-			grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
-			                                   config.max_grad_norm)
+			# grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, self.trainables_variables),
+			#                                    config.max_grad_norm)
+			grads, _ = tf.clip_by_value(tf.gradients(self.cost, self.trainables_variables),
+			                                   -config.max_grad_norm, config.max_grad_norm)
 			self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr)
 			self.train_op = self.optimizer.apply_gradients(zip(grads, self.trainables_variables), global_step=self.global_step)
 
@@ -239,7 +241,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0001
-		max_grad_norm = 2
+		max_grad_norm = 5
 		iterations = (10**6)*3
 		init_scale = 0.1
 
@@ -252,7 +254,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0002
-		max_grad_norm = 2
+		max_grad_norm = 5
 		iterations = (10**6)*3
 		init_scale = 0.1
 
@@ -265,7 +267,7 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0001
-		max_grad_norm = 2
+		max_grad_norm = 5
 		iterations = (10**5)*6
 		init_scale = 0.1
 
