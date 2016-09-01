@@ -270,12 +270,14 @@ if __name__ == "__main__" :
 		init_scale = 0.0001
 
 	with tf.Graph().as_default(), tf.Session() as session:
-		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
+		initializer = tf.random_uniform_initializer(-configobj_f().init_scale,configobj_f().init_scale)
 
 		with tf.variable_scope("model_full", reuse=None, initializer=initializer):
 			mod_f = RNN_MNIST_model(configobj_f(), True, model_type="FULL")
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_g = RNN_MNIST_model(configobj_g(), False, model_type="GEN")
+
+		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_d = RNN_MNIST_model(configobj(), True, model_type="DISC")
 
