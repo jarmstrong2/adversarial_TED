@@ -239,9 +239,9 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0001
-		max_grad_norm = 1
+		max_grad_norm = 5
 		iterations = (10**6)*3
-		init_scale = 0.1
+		init_scale = 0.0001
 
 	class configobj_f(object):
 		batch_size = 2**7
@@ -252,9 +252,9 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0002
-		max_grad_norm = 1
+		max_grad_norm = 5
 		iterations = (10**6)*3
-		init_scale = 0.1
+		init_scale = 0.0001
 
 	class configobj_g(object):
 		batch_size = 2**6
@@ -265,9 +265,9 @@ if __name__ == "__main__" :
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0001
-		max_grad_norm = 1
+		max_grad_norm = 5
 		iterations = (10**5)*6
-		init_scale = 0.1
+		init_scale = 0.0001
 
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
