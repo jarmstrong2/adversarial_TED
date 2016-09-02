@@ -238,10 +238,10 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.00005
+		lr = 0.0001
 		max_grad_norm = 5
 		iterations = (10**6)*3
-		init_scale = 0.00001
+		init_scale = 0.00005
 
 	class configobj_f(object):
 		batch_size = 2**7
@@ -251,7 +251,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.00005
+		lr = 0.0002
 		max_grad_norm = 5
 		iterations = (10**6)*3
 		init_scale = 0.0002
