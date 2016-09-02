@@ -236,7 +236,7 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 6
-		hidden_size_RNN_g = 600
+		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 600
 		lr = 0.0001
 		max_grad_norm = 10
@@ -249,7 +249,7 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 6
-		hidden_size_RNN_g = 600
+		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 600
 		lr = 0.0002
 		max_grad_norm = 10
@@ -262,7 +262,7 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 6
-		hidden_size_RNN_g = 600
+		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 600
 		lr = 0.0001
 		max_grad_norm = 10
@@ -338,7 +338,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_sep_4_5.png')
+				plt.savefig('classification_sep_4_6.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -357,7 +357,7 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_sep_4_5.png')
+				plt.savefig('loss_sep_4_6.png')
 
 				y_plot_avg_g.append(getMovingAvg(trainable_g))
 				y_plot_avg_d.append(getMovingAvg(trainable_d))
@@ -366,7 +366,7 @@ if __name__ == "__main__" :
 				avg_plt_d, = plt.plot(x_plot_loss_d, y_plot_avg_d, 'b-')
 				plt.legend([avg_plt_g, avg_plt_d], ["GEN", "DISC"])
 				plt.title('Moving Average')
-				plt.savefig('avg_sep_4_5.png')
+				plt.savefig('avg_sep_4_6.png')
 
 
 
@@ -430,5 +430,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if ((i+1) % 10000 == 0):
-				save_path = saver.save(session, "model_sep_4_5.ckpt")
+				save_path = saver.save(session, "model_sep_4_6.ckpt")
 				print("Model saved in file: %s" % save_path)
