@@ -237,7 +237,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 4
 		hidden_size_RNN_g = 600
-		hidden_size_RNN_d = 600
+		hidden_size_RNN_d = 400
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = (10**6)*3
