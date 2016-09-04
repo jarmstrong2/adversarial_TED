@@ -179,7 +179,7 @@ class RNN_MNIST_model(object):
 			l2_loss = tf.add_n([tf.nn.l2_loss(v) for v in self.trainables_variables])
 			lambda_coeff = 0.00001
 
-			self.cost = self.cost + lambda_coeff * l2_loss
+			self.cost = self.cost #+ lambda_coeff * l2_loss
 
 			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
 			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
