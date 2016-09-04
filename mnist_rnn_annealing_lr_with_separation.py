@@ -9,7 +9,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 splits = [1,2,4,7,14,28]
-split_opt = 2
+split_opt = 3
 
 class RNN_MNIST_model(object):
 	def __init__(self, config, is_training = True, model_type="FULL"):
@@ -338,7 +338,7 @@ if __name__ == "__main__" :
 				class_plt_d, = plt.plot(x_plot_class_d, y_plot_class_d, 'b-')
 				plt.legend([class_plt_g, class_plt_d], ["GEN", "DISC"])
 				plt.title('Classification')
-				plt.savefig('classification_sep_4_11.png')
+				plt.savefig('classification_sep_7_1.png')
 
 				x_plot_loss_g.append(i)
 				y_plot_loss_g.append(accumulator_loss_g/stepsingen_loss_g)
@@ -357,7 +357,7 @@ if __name__ == "__main__" :
 				loss_plt_d, = plt.plot(x_plot_loss_d, y_plot_loss_d, 'b-')
 				plt.legend([loss_plt_g, loss_plt_d], ["GEN", "DISC"])
 				plt.title('Loss')
-				plt.savefig('loss_sep_4_11.png')
+				plt.savefig('loss_sep_7_1.png')
 
 				y_plot_avg_g.append(getMovingAvg(trainable_g))
 				y_plot_avg_d.append(getMovingAvg(trainable_d))
@@ -366,7 +366,7 @@ if __name__ == "__main__" :
 				avg_plt_d, = plt.plot(x_plot_loss_d, y_plot_avg_d, 'b-')
 				plt.legend([avg_plt_g, avg_plt_d], ["GEN", "DISC"])
 				plt.title('Moving Average')
-				plt.savefig('avg_sep_4_11.png')
+				plt.savefig('avg_sep_7_1.png')
 
 
 
@@ -430,5 +430,5 @@ if __name__ == "__main__" :
 				stepsingen_loss_d += 1
 
 			if ((i+1) % 10000 == 0):
-				save_path = saver.save(session, "model_sep_4_11.ckpt")
+				save_path = saver.save(session, "model_sep_7_1.ckpt")
 				print("Model saved in file: %s" % save_path)
