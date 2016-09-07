@@ -179,7 +179,7 @@ class RNN_MNIST_model(object):
 			l2_loss = tf.add_n([tf.nn.l2_loss(v) for v in self.trainables_variables])
 			lambda_coeff = 0.00001
 
-			self.cost = self.cost #+ lambda_coeff * l2_loss
+			self.cost = self.cost + lambda_coeff * l2_loss
 
 			correct_pred = tf.equal(tf.argmax(final_trans,1), tf.argmax(self.target_bin,1))
 			self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
@@ -235,39 +235,39 @@ if __name__ == "__main__" :
 		keep_prob = 0.5
 		z_size = 100
 		lstm_layers_RNN_g = 6
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = (10**6)*3
-		init_scale = 0.001
+		init_scale = 0.01
 
 	class configobj_f(object):
 		batch_size = 2**7
 		keep_prob = 0.5
 		z_size = 100
 		lstm_layers_RNN_g = 6
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0002
 		max_grad_norm = 10
 		iterations = (10**6)*3
-		init_scale = 0.001
+		init_scale = 0.01
 
 	class configobj_g(object):
 		batch_size = 2**6
 		keep_prob = 0.005
 		z_size = 100
 		lstm_layers_RNN_g = 6
-		lstm_layers_RNN_d = 4
+		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.001
+		lr = 0.0001
 		max_grad_norm = 10
 		iterations = (10**5)*6
-		init_scale = 0.001
+		init_scale = 0.01
 
 
 	with tf.Graph().as_default(), tf.Session() as session:
