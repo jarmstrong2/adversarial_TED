@@ -268,6 +268,7 @@ if __name__ == "__main__" :
 		max_grad_norm = 10
 		iterations = (10**5)*6
 		init_scale = 0.1
+		
 
 	with tf.Graph().as_default(), tf.Session() as session:
 		initializer = tf.random_uniform_initializer(-configobj_f().init_scale,configobj_f().init_scale)
