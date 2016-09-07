@@ -236,12 +236,12 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 4
-		hidden_size_RNN_g = 800
+		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0001
 		max_grad_norm = 10
 		iterations = (10**6)*3
-		init_scale = 0.1
+		init_scale = 0.01
 
 	class configobj_f(object):
 		batch_size = 2**7
@@ -249,12 +249,12 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 4
-		hidden_size_RNN_g = 800
+		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.0002
 		max_grad_norm = 10
 		iterations = (10**6)*3
-		init_scale = 0.1
+		init_scale = 0.01
 
 	class configobj_g(object):
 		batch_size = 2**6
@@ -262,12 +262,12 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 4
-		hidden_size_RNN_g = 800
+		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
 		lr = 0.001
 		max_grad_norm = 10
 		iterations = (10**5)*6
-		init_scale = 0.1
+		init_scale = 0.01
 
 
 	with tf.Graph().as_default(), tf.Session() as session:
@@ -278,7 +278,7 @@ if __name__ == "__main__" :
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_g = RNN_MNIST_model(configobj_g(), False, model_type="GEN")
 
-		#initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
+		initializer = tf.random_uniform_initializer(-configobj().init_scale,configobj().init_scale)
 		with tf.variable_scope("model_full", reuse=True, initializer=initializer):
 			mod_d = RNN_MNIST_model(configobj(), True, model_type="DISC")
 
