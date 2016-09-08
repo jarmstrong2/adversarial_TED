@@ -238,7 +238,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.00006
+		lr = 0.0001
 		max_grad_norm = 10
 		iterations = (10**6)*3
 		init_scale = 0.01
@@ -251,7 +251,7 @@ if __name__ == "__main__" :
 		lstm_layers_RNN_d = 2
 		hidden_size_RNN_g = 600
 		hidden_size_RNN_d = 400
-		lr = 0.0001
+		lr = 0.0002
 		max_grad_norm = 10
 		iterations = (10**6)*3
 		init_scale = 0.01
