@@ -25,6 +25,12 @@
 |![alt tag](steps16/im0_8.png)|![alt tag](steps16/im1_8.png)|![alt tag](steps16/im2_8.png)|![alt tag](steps16/im3_8.png)|![alt tag](steps16/im4_8.png)|![alt tag](steps16/im5_8.png)|![alt tag](steps16/im6_8.png)|![alt tag](steps16/im7_8.png)|![alt tag](steps16/im8_8.png)|![alt tag](steps16/im9_8.png)|
 |![alt tag](steps16/im0_9.png)|![alt tag](steps16/im1_9.png)|![alt tag](steps16/im2_9.png)|![alt tag](steps16/im3_9.png)|![alt tag](steps16/im4_9.png)|![alt tag](steps16/im5_9.png)|![alt tag](steps16/im6_9.png)|![alt tag](steps16/im7_9.png)|![alt tag](steps16/im8_9.png)|![alt tag](steps16/im9_9.png)|
 
+![alt tag](steps16/loss_sep_4_18.png)
+
+![alt tag](steps16/classification_sep_4_18.png)
+
+![alt tag](steps16/avg_sep_4_18.png)
+
 ### TIMESTEP ANNEALED MODEL
 
 | Variable          | Value     |
