@@ -236,7 +236,7 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
-		hidden_size_RNN_g = 1000
+		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 600
 		lr = 0.0001
 		max_grad_norm = 10
@@ -249,7 +249,7 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
-		hidden_size_RNN_g = 1000
+		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 600
 		lr = 0.0002
 		max_grad_norm = 10
@@ -262,7 +262,7 @@ if __name__ == "__main__" :
 		z_size = 100
 		lstm_layers_RNN_g = 6
 		lstm_layers_RNN_d = 2
-		hidden_size_RNN_g = 1000
+		hidden_size_RNN_g = 800
 		hidden_size_RNN_d = 600
 		lr = 0.0001
 		max_grad_norm = 10
